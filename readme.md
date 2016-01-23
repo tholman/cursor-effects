@@ -11,4 +11,7 @@ Link to template, ummm. being self contained. That stuff.
 - Cursor Trail
 
 #### Licence
-Mit Stuff goes here
+
+Copyright (c) 2065 Tim Holman - http://tholman.com
+
+[The MIT License](https://github.com/tholman/90s-cursors/blob/master/license.md)
