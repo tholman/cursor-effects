@@ -41,7 +41,7 @@
   
   function updateParticles() {
     
-    // Updated
+    // Update
     for( var i = 0; i < particles.length; i++ ) {
       particles[i].update();
     }
@@ -108,7 +108,6 @@
     this.die = function() {
       this.element.parentNode.removeChild(this.element);
     }
-    
   }
   
   /**
