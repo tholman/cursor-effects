@@ -1,4 +1,4 @@
-## 90's cursor Effects
+## 90's Cursor Effects
 _"Knowing the codes" used to be all the rage, I want to bring a few back._
 
 #### About
@@ -12,6 +12,7 @@ They're definitely using newer technology, and some of them couldn't have existe
 - Fairly Dust Cursor
 - Emoji Particle Cursor
 - Cursor Trail
+- Bubbles Cursor
 
 #### Contributing
 If you've got something to add (something old, or something new), please do! There's even a simple [template](https://github.com/tholman/90s-cursor-effects/blob/master/js/template.js) in the js folder, which provides a couple of the simpler functions for mouse tracking.
@@ -19,7 +20,6 @@ If you've got something to add (something old, or something new), please do! The
 I'm sticking with using html elements (positioned absolutely) for now, and ignoring the canvas (I know it could be more efficient drawing, but 90's wasn't about the canvas)
 
 #### TODO (Please, go ahead!)
-- Bubbles
 - Rotating text (remember those?!)
 
 #### Licence
