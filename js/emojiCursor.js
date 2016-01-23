@@ -1,11 +1,12 @@
 /*!
- * Fairy Dust Cursor.js
+ * Emoji Cursor.js
  * -- 90's cursors collection
+ * -- http://tholman.com/90s-cursors
  */
 
-(function fairyDustCursor() {
+(function emojiCursor() {
   
-  var possibleColors = ["#D61C59", "#E7D84B", "#1B8798"];
+  var possibleEmoji = ["😀", "😂", "😆", "😊"];
   var width = window.innerWidth;
   var height = window.innerHeight;
   var cursor = {x: width/2, y: width/2};
@@ -30,24 +31,24 @@
   function onMouseMove(e) {    
     cursor.x = e.clientX;
     cursor.y = e.clientY;
-    addParticle( cursor.x, cursor.y, possibleColors[Math.floor(Math.random()*possibleColors.length)]);
+    addParticle( cursor.x, cursor.y, possibleEmoji[Math.floor(Math.random()*possibleEmoji.length)]);
   }
   
-  function addParticle(x, y, color) {
+  function addParticle(x, y, character) {
     var particle = new Particle();
-    particle.init(x, y, color);
+    particle.init(x, y, character);
     particles.push(particle);
   }
   
   function updateParticles() {
     
-    // Update
+    // Updated
     for( var i = 0; i < particles.length; i++ ) {
       particles[i].update();
     }
     
     // Remove dead particles
-    for( var i = particles.length - 1; i >= 0; i-- ) {
+    for( var i = particles.length -1; i >= 0; i-- ) {
       if( particles[i].lifeSpan < 0 ) {
         particles[i].die();
         particles.splice(i, 1);
@@ -67,7 +68,6 @@
   
   function Particle() {
 
-    this.character = "*";
     this.lifeSpan = 120; //ms
     this.initialStyles ={
       "position": "absolute",
@@ -78,7 +78,7 @@
     };
 
     // Init, and set properties
-    this.init = function(x, y, color) {
+    this.init = function(x, y, character) {
 
       this.velocity = {
         x:  (Math.random() < 0.5 ? -1 : 1) * (Math.random() / 2),
@@ -86,10 +86,9 @@
       };
       
       this.position = {x: x - 10, y: y - 20};
-      this.initialStyles.color = color;
 
       this.element = document.createElement('span');
-      this.element.innerHTML = this.character;
+      this.element.innerHTML = character;
       applyProperties(this.element, this.initialStyles);
       this.update();
       
@@ -107,6 +106,7 @@
     this.die = function() {
       this.element.parentNode.removeChild(this.element);
     }
+    
   }
   
   /**
