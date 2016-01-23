@@ -5,7 +5,7 @@
 
 (function fairyDustCursor() {
   
-  var possibleColors = ["#360745", "#D61C59", "#E7D84B", "#1B8798"]
+  var possibleColors = ["#D61C59", "#E7D84B", "#1B8798"];
   var width = window.innerWidth;
   var height = window.innerHeight;
   var cursor = {x: width/2, y: width/2};
@@ -47,7 +47,7 @@
     }
     
     // Remove dead particles
-    for( var i = particles.length - 1; i => 0; i--; ) {
+    for( var i = particles.length - 1; i >= 0; i-- ) {
       if( particles[i].lifeSpan < 0 ) {
         particles[i].die();
         particles.splice(i, 1);
