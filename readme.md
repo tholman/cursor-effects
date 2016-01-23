@@ -12,6 +12,6 @@ Link to template, ummm. being self contained. That stuff.
 
 #### Licence
 
-Copyright (c) 2065 Tim Holman - http://tholman.com
+Copyright (c) 2016 Tim Holman - http://tholman.com
 
 [The MIT License](https://github.com/tholman/90s-cursors/blob/master/license.md)
