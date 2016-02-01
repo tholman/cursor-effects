@@ -11,7 +11,7 @@ They're definitely using newer technology, and some of them couldn't have existe
 If you've got one to add, please do!
 
 #### Current Cursors (and Demo's)
-- [Fairly Dust Cursor](http://codepen.io/tholman/full/jWmZxZ/)
+- [Fairy Dust Cursor](http://codepen.io/tholman/full/jWmZxZ/)
 - [Emoji Particle Cursor](http://codepen.io/tholman/full/rxJpdQ)
 - [Bubbles Cursor](http://codepen.io/tholman/full/qbxxxq/)
 
