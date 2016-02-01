@@ -1,11 +1,13 @@
 /*!
  * Fairy Dust Cursor.js
- * -- 90's cursors collection
+ * - 90's cursors collection
+ * -- https://github.com/tholman/90s-cursor-effects
+ * -- http://codepen.io/tholman/full/jWmZxZ/
  */
 
 (function fairyDustCursor() {
   
-  var possibleColors = ["#D61C59", "#E7D84B", "#1B8798"];
+  var possibleColors = ["#D61C59", "#E7D84B", "#1B8798"]
   var width = window.innerWidth;
   var height = window.innerHeight;
   var cursor = {x: width/2, y: width/2};
@@ -19,6 +21,9 @@
   // Bind events that are needed
   function bindEvents() {
     document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('touchmove', onTouchMove);
+    document.addEventListener('touchstart', onTouchMove);
+    
     window.addEventListener('resize', onWindowResize);
   }
   
@@ -27,9 +32,18 @@
     height = window.innerHeight;
   }
   
+  function onTouchMove(e) {
+    if( e.touches.length > 0 ) {
+      for( var i = 0; i < e.touches.length; i++ ) {
+        addParticle( e.touches[i].clientX, e.touches[i].clientY, possibleColors[Math.floor(Math.random()*possibleColors.length)]);
+      }
+    }
+  }
+  
   function onMouseMove(e) {    
     cursor.x = e.clientX;
     cursor.y = e.clientY;
+    
     addParticle( cursor.x, cursor.y, possibleColors[Math.floor(Math.random()*possibleColors.length)]);
   }
   
@@ -41,13 +55,13 @@
   
   function updateParticles() {
     
-    // Update
+    // Updated
     for( var i = 0; i < particles.length; i++ ) {
       particles[i].update();
     }
     
     // Remove dead particles
-    for( var i = particles.length - 1; i >= 0; i-- ) {
+    for( var i = particles.length -1; i >= 0; i-- ) {
       if( particles[i].lifeSpan < 0 ) {
         particles[i].die();
         particles.splice(i, 1);
@@ -87,6 +101,7 @@
       
       this.position = {x: x - 10, y: y - 20};
       this.initialStyles.color = color;
+      console.log(color);
 
       this.element = document.createElement('span');
       this.element.innerHTML = this.character;
@@ -107,6 +122,7 @@
     this.die = function() {
       this.element.parentNode.removeChild(this.element);
     }
+    
   }
   
   /**

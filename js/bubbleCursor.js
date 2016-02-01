@@ -1,6 +1,8 @@
 /*!
  * Bubble Cursor.js
- * -- 90's cursors collection
+ * - 90's cursors collection
+ * -- https://github.com/tholman/90s-cursor-effects
+ * -- http://codepen.io/tholman/full/qbxxxq/
  */
 
 (function bubblesCursor() {
@@ -26,9 +28,18 @@
     height = window.innerHeight;
   }
   
+  function onTouchMove(e) {
+    if( e.touches.length > 0 ) {
+      for( var i = 0; i < e.touches.length; i++ ) {
+        addParticle(e.touches[i].clientX, e.touches[i].clientY);
+      }
+    }
+  }
+  
   function onMouseMove(e) {    
     cursor.x = e.clientX;
     cursor.y = e.clientY;
+    
     addParticle( cursor.x, cursor.y);
   }
   

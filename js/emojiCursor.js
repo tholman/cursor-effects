@@ -1,12 +1,13 @@
 /*!
  * Emoji Cursor.js
- * -- 90's cursors collection
- * -- http://tholman.com/90s-cursors
+ * - 90's cursors collection
+ * -- https://github.com/tholman/90s-cursor-effects
+ * -- http://codepen.io/tholman/full/rxJpdQ
  */
 
 (function emojiCursor() {
   
-  var possibleEmoji = ["😀", "😂", "😆", "😊"];
+  var possibleEmoji = ["😀", "😂", "😆", "😊"]
   var width = window.innerWidth;
   var height = window.innerHeight;
   var cursor = {x: width/2, y: width/2};
@@ -20,6 +21,9 @@
   // Bind events that are needed
   function bindEvents() {
     document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('touchmove', onTouchMove);
+    document.addEventListener('touchstart', onTouchMove);
+    
     window.addEventListener('resize', onWindowResize);
   }
   
@@ -28,9 +32,18 @@
     height = window.innerHeight;
   }
   
+  function onTouchMove(e) {
+    if( e.touches.length > 0 ) {
+      for( var i = 0; i < e.touches.length; i++ ) {
+        addParticle( e.touches[i].clientX, e.touches[i].clientY, possibleEmoji[Math.floor(Math.random()*possibleEmoji.length)]);
+      }
+    }
+  }
+  
   function onMouseMove(e) {    
     cursor.x = e.clientX;
     cursor.y = e.clientY;
+    
     addParticle( cursor.x, cursor.y, possibleEmoji[Math.floor(Math.random()*possibleEmoji.length)]);
   }
   
@@ -106,7 +119,6 @@
     this.die = function() {
       this.element.parentNode.removeChild(this.element);
     }
-    
   }
   
   /**
