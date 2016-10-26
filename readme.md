@@ -11,19 +11,19 @@ They're definitely using newer technology, and some of them couldn't have existe
 If you've got one to add, please do!
 
 #### Current Cursors (and Demo's)
-- [Fairly Dust Cursor](http://codepen.io/tholman/full/jWmZxZ/)
+- [Fairy Dust Cursor](http://codepen.io/tholman/full/jWmZxZ/)
 - [Emoji Particle Cursor](http://codepen.io/tholman/full/rxJpdQ)
 - [Bubbles Cursor](http://codepen.io/tholman/full/qbxxxq/)
 - [Bats Cursor](http://codepen.io/tholman/full/kkmZyq/)
+
+#### To be added (Please, go ahead!)
+- Rotating text (remember those, the text would fly around the mouse)
+- Cursor Trail (it was like, a shadowed version of the cursor following where you move)
 
 #### Contributing
 If you've got something to add (something old, or something new), please do! There's even a simple [template](https://github.com/tholman/90s-cursor-effects/blob/master/js/template.js) in the js folder, which provides a couple of the simpler functions for mouse tracking. Of course you don't need to use it if you don't want.
 
 I'm sticking with using html elements (positioned absolutely) for now, and ignoring the canvas (I know it could be more efficient drawing, but 90's wasn't about the canvas)
-
-#### To be added (Please, go ahead!)
-- Rotating text (remember those, the text would fly around the mouse)
-- Cursor Trail (it was like, a shadowed version of the cursor following where you move)
 
 #### Licence
 
