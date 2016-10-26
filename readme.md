@@ -14,6 +14,7 @@ If you've got one to add, please do!
 - [Fairly Dust Cursor](http://codepen.io/tholman/full/jWmZxZ/)
 - [Emoji Particle Cursor](http://codepen.io/tholman/full/rxJpdQ)
 - [Bubbles Cursor](http://codepen.io/tholman/full/qbxxxq/)
+- [Bats Cursor](http://codepen.io/tholman/full/kkmZyq/)
 
 #### Contributing
 If you've got something to add (something old, or something new), please do! There's even a simple [template](https://github.com/tholman/90s-cursor-effects/blob/master/js/template.js) in the js folder, which provides a couple of the simpler functions for mouse tracking. Of course you don't need to use it if you don't want.
