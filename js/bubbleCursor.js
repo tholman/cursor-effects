@@ -87,7 +87,8 @@
       "height": "5px",
       "background": "#e6f1f7",
       "box-shadow": "-1px 0px #6badd3, 0px -1px #6badd3, 1px 0px #3a92c5, 0px 1px #3a92c5",
-       "border-radius": "1px"
+      "border-radius": "1px",
+      "will-change": "transform"
     };
 
     // Init, and set properties
