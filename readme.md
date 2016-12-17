@@ -14,7 +14,7 @@ If you've got one to add, please do!
 - [Fairy Dust Cursor](http://codepen.io/tholman/full/jWmZxZ/)
 - [Emoji Particle Cursor](http://codepen.io/tholman/full/rxJpdQ)
 - [Bubbles Cursor](http://codepen.io/tholman/full/qbxxxq/)
-- [Bats Cursor](http://codepen.io/tholman/full/kkmZyq/)
+- [Halloween (Bats) Cursor](http://codepen.io/tholman/full/kkmZyq/)
 
 #### To be added (Please, go ahead!)
 - Rotating text (remember those, the text would fly around the mouse)
