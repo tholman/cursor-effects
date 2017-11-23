@@ -24,7 +24,7 @@ If you've got one to add, please do!
 #### Contributing
 If you've got something to add (something old, or something new), please do! There's even a simple [template](https://github.com/tholman/90s-cursor-effects/blob/master/js/template.js) in the js folder, which provides a couple of the simpler functions for mouse tracking. Of course you don't need to use it if you don't want.
 
-I'm sticking with using html elements (positioned absolutely) for now, and ignoring the canvas (I know it could be more efficient drawing, but 90's wasn't about the canvas)
+I'm sticking with using HTML elements (positioned absolutely) for now, and ignoring the canvas (I know it could be more efficient drawing, but 90's wasn't about the canvas)
 
 #### Licence
 
