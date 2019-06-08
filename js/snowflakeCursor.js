@@ -82,7 +82,7 @@
   function Particle() {
 
     this.initialStyles ={
-      "position": "absolute",
+      "position": "fixed",
       "display": "block",
       "pointerEvents": "none",
       "z-index": "10000000",
