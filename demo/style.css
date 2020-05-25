@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+header {
+  width: 100%;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.8rem;
+  font-family: papyrus;
+  letter-spacing: 2px;
+  padding-top: 50px;
+  text-shadow: 3px 3px 0 hotpink, -1px -1px 0 hotpink, 1px -1px 0 hotpink,
+    -1px 1px 0 hotpink, 1px 1px 0 hotpink;
+}
+
+.wrapper {
+  padding: 30px;
+  padding-top: 10px;
+  max-width: 580px;
+  font-family: monospace;
+  text-align: justify;
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+  margin: auto;
+}
+
+.cursor {
+  margin-top: 20px;
+  background: #eee;
+  width: 100%;
+  height: 400px;
+  position: relative;
+  font-family: monospace;
+}
+
+.info {
+  padding: 20px;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.byline {
+  padding-top: 5px;
+  font-style: italic;
+}
