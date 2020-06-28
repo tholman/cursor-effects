@@ -78,8 +78,15 @@ function fairyDustCursor(wrapperEl) {
   function onWindowResize(e) {
     width = window.innerWidth;
     height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
+
+    if (wrapperEl) {
+      canvas.width = wrapperEl.clientWidth;
+      canvas.height = wrapperEl.clientHeight;
+    } else {
+      canvas.width = width;
+      canvas.height = height;
+    }
+
   }
 
   function onTouchMove(e) {
