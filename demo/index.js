@@ -1,2 +1,2 @@
 new fairyDustCursor(document.querySelector("#fairyDust"));
-// new fairyDustCursor();
+new ghostCursor(document.querySelector("#ghost"));
