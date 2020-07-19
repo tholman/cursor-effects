@@ -43,6 +43,11 @@ h1 {
   margin: auto;
 }
 
+.wrapper span {
+  font-style: italic;
+  font-weight: bold;
+}
+
 .cursor {
   padding: 30px 30px 0;
   width: 100%;

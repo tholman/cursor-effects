@@ -1,4 +1,7 @@
-function springyEmoji(wrapperEl) {
+// The springy emoji effect has been translated over from this old
+// code, to modern js & canvas
+// - http://www.yaldex.com/FSMessages/ElasticBullets.htm
+function springyEmojiCursor(wrapperEl) {
   var nDots = 7;
 
   var DELTAT = 0.01;
@@ -98,15 +101,16 @@ function springyEmoji(wrapperEl) {
   }
 
   function onTouchMove(e) {
-    // if (e.touches.length > 0) {
-    //   for (var i = 0; i < e.touches.length; i++) {
-    //     addParticle(
-    //       e.touches[i].clientX,
-    //       e.touches[i].clientY,
-    //       canvImages[Math.floor(Math.random() * canvImages.length)]
-    //     );
-    //   }
-    // }
+    if (e.touches.length > 0) {
+      if (wrapperEl) {
+        const boundingRect = wrapperEl.getBoundingClientRect();
+        cursor.x = e.touches[0].clientX - boundingRect.left;
+        cursor.y = e.touches[0].clientY - boundingRect.top;
+      } else {
+        cursor.x = e.touches[0].clientX;
+        cursor.y = e.touches[0].clientY;
+      }
+    }
   }
 
   function onMouseMove(e) {
@@ -121,7 +125,7 @@ function springyEmoji(wrapperEl) {
   }
 
   function updateParticles() {
-    canvas.width = canvas.width
+    canvas.width = canvas.width;
 
     // follow mouse
     particles[0].position.x = cursor.x;
