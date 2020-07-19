@@ -1,9 +1,3 @@
-/*!
- * Fairy Dust Cursor.js
- * - 90's cursors collection
- * - https://github.com/tholman/cursor-effects
- */
-
 function emojiCursor(wrapperEl) {
   var possibleEmoji = ["😀", "😂", "😆", "😊"];
   var width = window.innerWidth;
