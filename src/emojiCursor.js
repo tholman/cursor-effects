@@ -1,5 +1,5 @@
-function emojiCursor(wrapperEl) {
-  var possibleEmoji = ["😀", "😂", "😆", "😊"];
+function emojiCursor(wrapperEl, options) {
+  var possibleEmoji = options && options.emoji || ["😀", "😂", "😆", "😊"];
   var width = window.innerWidth;
   var height = window.innerHeight;
   var cursor = { x: width / 2, y: width / 2 };

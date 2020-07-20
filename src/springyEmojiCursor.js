@@ -1,9 +1,11 @@
 // The springy emoji effect has been translated over from this old
 // code, to modern js & canvas
 // - http://www.yaldex.com/FSMessages/ElasticBullets.htm
-function springyEmojiCursor(wrapperEl) {
-  var nDots = 7;
+function springyEmojiCursor(wrapperEl, options) {
 
+  var emoji = options && options.emoji || "🤪";
+  
+  var nDots = 7;
   var DELTAT = 0.01;
   var SEGLEN = 10;
   var SPRINGK = 10;
@@ -15,7 +17,6 @@ function springyEmojiCursor(wrapperEl) {
   var DOTSIZE = 11;
   var BOUNCE = 0.7;
 
-  var emoji = "😂";
   var width = window.innerWidth;
   var height = window.innerHeight;
   var cursor = { x: width / 2, y: width / 2 };
