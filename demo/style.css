@@ -77,6 +77,13 @@ h1 {
   padding: 6px 8px;
   letter-spacing: 1.5px;
   color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.name a {
+  color: white;
+  text-decoration: none;
 }
 
 .byline {
