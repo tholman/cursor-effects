@@ -1,0 +1,100 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+}
+
+body {
+  background: #fafafa;
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+header {
+  width: 100%;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.8rem;
+  font-family: papyrus;
+  letter-spacing: 2px;
+  padding-top: 50px;
+   text-shadow:
+       3px 3px 0 red,
+     -1px -1px 0 red,  
+      1px -1px 0 red,
+      -1px 1px 0 red,
+       1px 1px 0 red;
+}
+
+.wrapper {
+  margin: 30px;
+  padding: 30px;
+  max-width: 580px;
+  font-family: monospace;
+  text-align: justify;
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+  margin: auto;
+}
+
+.wrapper span {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.cursor {
+  padding: 30px 30px 0;
+  width: 100%;
+  height: 400px;
+  position: relative;
+  font-family: monospace;
+}
+
+.box {
+  width: 100%;
+  height: 100%;
+  border: 3px solid black;
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  width: 100%;
+  background: linear-gradient(90deg, hotpink, #54b2f0);
+}
+
+.name {
+  font-weight: bold;
+  width: 100%;
+  border-bottom: 2px solid black;
+  padding: 6px 8px;
+  letter-spacing: 1.5px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.name a {
+  color: white;
+  text-decoration: none;
+}
+
+.byline {
+  padding: 6px 8px;
+  font-style: italic;
+  background: #f9f9f9;
+  opacity: 0.7;
+  border-bottom: 1px solid black;
+}
+
+.effect {
+  height: 100%;
+  position: relative;
+}
