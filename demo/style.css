@@ -2,7 +2,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
 }
 
@@ -10,7 +11,9 @@ body {
   background: #fafafa;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin: 0;
 }
 
@@ -24,12 +27,8 @@ h1 {
   font-family: papyrus;
   letter-spacing: 2px;
   padding-top: 50px;
-   text-shadow:
-       3px 3px 0 red,
-     -1px -1px 0 red,  
-      1px -1px 0 red,
-      -1px 1px 0 red,
-       1px 1px 0 red;
+  text-shadow: 3px 3px 0 red, -1px -1px 0 red, 1px -1px 0 red, -1px 1px 0 red,
+    1px 1px 0 red;
 }
 
 .wrapper {
@@ -102,4 +101,34 @@ h1 {
 .effect {
   height: 100%;
   position: relative;
+}
+
+.github-corner:hover .octo-arm {
+  animation: octocat-wave 560ms ease-in-out;
+}
+
+@keyframes octocat-wave {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20%,
+  60% {
+    transform: rotate(-25deg);
+  }
+  40%,
+  80% {
+    transform: rotate(10deg);
+  }
+}
+
+@media (max-width: 500px) {
+
+  .github-corner:hover .octo-arm {
+    animation: none;
+  }
+  
+  .github-corner .octo-arm {
+    animation: octocat-wave 560ms ease-in-out;
+  }
 }
