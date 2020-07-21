@@ -70,6 +70,11 @@ h1 {
   background: linear-gradient(90deg, hotpink, #54b2f0);
 }
 
+.center {
+  text-align: center;
+  margin: 10px;
+}
+
 .name {
   font-weight: bold;
   width: 100%;
