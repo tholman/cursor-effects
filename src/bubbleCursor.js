@@ -1,14 +1,17 @@
-function bubbleCursor(wrapperEl) {
-  var width = window.innerWidth;
-  var height = window.innerHeight;
-  var cursor = { x: width / 2, y: width / 2 };
-  var particles = [];
-  var element, canvas, context;
+function bubbleCursor(options) {
 
-  var canvImages = [];
+  let hasWrapperEl = options && options.element;
+  let element = hasWrapperEl || document.body;
+
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+  let cursor = { x: width / 2, y: width / 2 };
+  let particles = [];
+  let canvas, context;
+
+  let canvImages = [];
 
   function init(wrapperEl) {
-    this.element = wrapperEl || document.body;
     canvas = document.createElement("canvas");
     context = canvas.getContext("2d");
 
@@ -16,11 +19,11 @@ function bubbleCursor(wrapperEl) {
     canvas.style.left = "0px";
     canvas.style.pointerEvents = "none";
 
-    if (wrapperEl) {
+    if (hasWrapperEl) {
       canvas.style.position = "absolute";
-      wrapperEl.appendChild(canvas);
-      canvas.width = wrapperEl.clientWidth;
-      canvas.height = wrapperEl.clientHeight;
+      element.appendChild(canvas);
+      canvas.width = element.clientWidth;
+      canvas.height = element.clientHeight;
     } else {
       canvas.style.position = "fixed";
       document.body.appendChild(canvas);
@@ -34,9 +37,9 @@ function bubbleCursor(wrapperEl) {
 
   // Bind events that are needed
   function bindEvents() {
-    this.element.addEventListener("mousemove", onMouseMove);
-    this.element.addEventListener("touchmove", onTouchMove);
-    this.element.addEventListener("touchstart", onTouchMove);
+    element.addEventListener("mousemove", onMouseMove);
+    element.addEventListener("touchmove", onTouchMove);
+    element.addEventListener("touchstart", onTouchMove);
     window.addEventListener("resize", onWindowResize);
   }
 
@@ -44,9 +47,9 @@ function bubbleCursor(wrapperEl) {
     width = window.innerWidth;
     height = window.innerHeight;
 
-    if (wrapperEl) {
-      canvas.width = wrapperEl.clientWidth;
-      canvas.height = wrapperEl.clientHeight;
+    if (hasWrapperEl) {
+      canvas.width = element.clientWidth;
+      canvas.height = element.clientHeight;
     } else {
       canvas.width = width;
       canvas.height = height;
@@ -55,7 +58,7 @@ function bubbleCursor(wrapperEl) {
 
   function onTouchMove(e) {
     if (e.touches.length > 0) {
-      for (var i = 0; i < e.touches.length; i++) {
+      for (let i = 0; i < e.touches.length; i++) {
         addParticle(
           e.touches[i].clientX,
           e.touches[i].clientY,
@@ -66,8 +69,8 @@ function bubbleCursor(wrapperEl) {
   }
 
   function onMouseMove(e) {
-    if (wrapperEl) {
-      const boundingRect = wrapperEl.getBoundingClientRect();
+    if (hasWrapperEl) {
+      const boundingRect = element.getBoundingClientRect();
       cursor.x = e.clientX - boundingRect.left;
       cursor.y = e.clientY - boundingRect.top;
     } else {
@@ -86,12 +89,12 @@ function bubbleCursor(wrapperEl) {
     context.clearRect(0, 0, width, height);
 
     // Update
-    for (var i = 0; i < particles.length; i++) {
+    for (let i = 0; i < particles.length; i++) {
       particles[i].update(context);
     }
 
     // Remove dead particles
-    for (var i = particles.length - 1; i >= 0; i--) {
+    for (let i = particles.length - 1; i >= 0; i--) {
       if (particles[i].lifeSpan < 0) {
         particles.splice(i, 1);
       }
@@ -144,5 +147,5 @@ function bubbleCursor(wrapperEl) {
     };
   }
 
-  init(wrapperEl);
+  init();
 }

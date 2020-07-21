@@ -1,44 +1,44 @@
 // The springy emoji effect has been translated over from this old
 // code, to modern js & canvas
 // - http://www.yaldex.com/FSMessages/ElasticBullets.htm
-function springyEmojiCursor(wrapperEl, options) {
+function springyEmojiCursor(options) {
 
-  var emoji = options && options.emoji || "🤪";
+  let emoji = options && options.emoji || "🤪";
+  let hasWrapperEl = options && options.element;
+  let element = hasWrapperEl || document.body;
   
-  var nDots = 7;
-  var DELTAT = 0.01;
-  var SEGLEN = 10;
-  var SPRINGK = 10;
-  var MASS = 1;
-  var GRAVITY = 50;
-  var RESISTANCE = 10;
-  var STOPVEL = 0.1;
-  var STOPACC = 0.1;
-  var DOTSIZE = 11;
-  var BOUNCE = 0.7;
+  let nDots = 7;
+  let DELTAT = 0.01;
+  let SEGLEN = 10;
+  let SPRINGK = 10;
+  let MASS = 1;
+  let GRAVITY = 50;
+  let RESISTANCE = 10;
+  let STOPVEL = 0.1;
+  let STOPACC = 0.1;
+  let DOTSIZE = 11;
+  let BOUNCE = 0.7;
 
-  var width = window.innerWidth;
-  var height = window.innerHeight;
-  var cursor = { x: width / 2, y: width / 2 };
-  var particles = [];
-  var element, canvas, context;
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+  let cursor = { x: width / 2, y: width / 2 };
+  let particles = [];
+  let canvas, context;
 
-  var emojiAsImage;
+  let emojiAsImage;
 
-  function init(wrapperEl) {
-    this.element = wrapperEl || document.body;
+  function init() {
     canvas = document.createElement("canvas");
     context = canvas.getContext("2d");
-
     canvas.style.top = "0px";
     canvas.style.left = "0px";
     canvas.style.pointerEvents = "none";
 
-    if (wrapperEl) {
+    if (hasWrapperEl) {
       canvas.style.position = "absolute";
-      wrapperEl.appendChild(canvas);
-      canvas.width = wrapperEl.clientWidth;
-      canvas.height = wrapperEl.clientHeight;
+      element.appendChild(canvas);
+      canvas.width = element.clientWidth;
+      canvas.height = element.clientHeight;
     } else {
       canvas.style.position = "fixed";
       document.body.appendChild(canvas);
@@ -71,7 +71,7 @@ function springyEmojiCursor(wrapperEl, options) {
 
     emojiAsImage = bgCanvas;
 
-    var i = 0;
+    let i = 0;
     for (i = 0; i < nDots; i++) {
       particles[i] = new Particle(emojiAsImage);
     }
@@ -82,9 +82,9 @@ function springyEmojiCursor(wrapperEl, options) {
 
   // Bind events that are needed
   function bindEvents() {
-    this.element.addEventListener("mousemove", onMouseMove);
-    this.element.addEventListener("touchmove", onTouchMove);
-    this.element.addEventListener("touchstart", onTouchMove);
+    element.addEventListener("mousemove", onMouseMove);
+    element.addEventListener("touchmove", onTouchMove);
+    element.addEventListener("touchstart", onTouchMove);
     window.addEventListener("resize", onWindowResize);
   }
 
@@ -92,9 +92,9 @@ function springyEmojiCursor(wrapperEl, options) {
     width = window.innerWidth;
     height = window.innerHeight;
 
-    if (wrapperEl) {
-      canvas.width = wrapperEl.clientWidth;
-      canvas.height = wrapperEl.clientHeight;
+    if (hasWrapperEl) {
+      canvas.width = element.clientWidth;
+      canvas.height = element.clientHeight;
     } else {
       canvas.width = width;
       canvas.height = height;
@@ -103,8 +103,8 @@ function springyEmojiCursor(wrapperEl, options) {
 
   function onTouchMove(e) {
     if (e.touches.length > 0) {
-      if (wrapperEl) {
-        const boundingRect = wrapperEl.getBoundingClientRect();
+      if (hasWrapperEl) {
+        const boundingRect = element.getBoundingClientRect();
         cursor.x = e.touches[0].clientX - boundingRect.left;
         cursor.y = e.touches[0].clientY - boundingRect.top;
       } else {
@@ -115,8 +115,8 @@ function springyEmojiCursor(wrapperEl, options) {
   }
 
   function onMouseMove(e) {
-    if (wrapperEl) {
-      const boundingRect = wrapperEl.getBoundingClientRect();
+    if (hasWrapperEl) {
+      const boundingRect = element.getBoundingClientRect();
       cursor.x = e.clientX - boundingRect.left;
       cursor.y = e.clientY - boundingRect.top;
     } else {
@@ -134,7 +134,7 @@ function springyEmojiCursor(wrapperEl, options) {
 
     // Start from 2nd dot
     for (i = 1; i < nDots; i++) {
-      var spring = new vec(0, 0);
+      let spring = new vec(0, 0);
 
       if (i > 0) {
         springForce(i - 1, i, spring);
@@ -144,12 +144,12 @@ function springyEmojiCursor(wrapperEl, options) {
         springForce(i + 1, i, spring);
       }
 
-      var resist = new vec(
+      let resist = new vec(
         -particles[i].velocity.x * RESISTANCE,
         -particles[i].velocity.y * RESISTANCE
       );
 
-      var accel = new vec(
+      let accel = new vec(
         (spring.X + resist.X) / MASS,
         (spring.Y + resist.Y) / MASS + GRAVITY
       );
@@ -170,7 +170,7 @@ function springyEmojiCursor(wrapperEl, options) {
       particles[i].position.x += particles[i].velocity.x;
       particles[i].position.y += particles[i].velocity.y;
 
-      var height, width;
+      let height, width;
       height = canvas.clientHeight;
       width = canvas.clientWidth;
 
@@ -210,11 +210,11 @@ function springyEmojiCursor(wrapperEl, options) {
   }
 
   function springForce(i, j, spring) {
-    var dx = particles[i].position.x - particles[j].position.x;
-    var dy = particles[i].position.y - particles[j].position.y;
-    var len = Math.sqrt(dx * dx + dy * dy);
+    let dx = particles[i].position.x - particles[j].position.x;
+    let dy = particles[i].position.y - particles[j].position.y;
+    let len = Math.sqrt(dx * dx + dy * dy);
     if (len > SEGLEN) {
-      var springF = SPRINGK * (len - SEGLEN);
+      let springF = SPRINGK * (len - SEGLEN);
       spring.X += (dx / len) * springF;
       spring.Y += (dy / len) * springF;
     }
@@ -240,5 +240,5 @@ function springyEmojiCursor(wrapperEl, options) {
     };
   }
 
-  init(wrapperEl);
+  init();
 }
