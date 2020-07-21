@@ -1,10 +1,7 @@
 ## 90's Cursor Effects
 _"Knowing the codes" used to be all the rage, I want to bring a few back._
 
-A repo of the old effects that inspired creativity and the desire to learn at least a little code around the world. Modernised so they're a little more efficient, and just as annoying as they were before.
-
-#### About
-Coming
+A repo of the old effects that inspired creativity and the desire to learn at least a little code around the world. Modernised so they're a little more efficient, and just as annoying (and twice as fun) as they were before.
 
 
 #### How to Use
@@ -22,11 +19,11 @@ And then create a new instance of its type in your JavaScript. The script will c
 new ghostCursor();
 ```
 
-You can also target specific elements, to have the canvas appear inside those, for example...
+You can also target specific elements, to have the canvas appear inside those, for example:
 
 ```
-const element = document.querySelector("#ghost")
-new ghostCursor(element);
+const targetElement = document.querySelector("#ghost")
+new ghostCursor({element: targetElement});
 ```
 
 #### NPM
