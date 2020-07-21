@@ -26,7 +26,7 @@ const targetElement = document.querySelector("#ghost")
 new ghostCursor({element: targetElement});
 ```
 
-### Specific Customization
+## Specific Customization
 
 A few of these have custom options as well (if you are interested in more options, opening an issue or PR is the way to go).
 
