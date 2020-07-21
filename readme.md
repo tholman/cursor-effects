@@ -55,8 +55,9 @@ You can change the emoji in `emojiCursor`'s emoji with the `emoji` option (a lis
 new emojiCursor({colors: ["🔥", "🐬", "🦆"]});
 ```
 
-
 ## NPM
-I haven't got around to this part yet, but if you'd like to make a rollup function that compiles everything all nice, be my guest... otherwise I'll get to it eventually!
+I haven't got around to it yet, but if you'd like to make a rollup that compiles everything all nice, be my guest... otherwise I'll get to it eventually!
 
-## Contributing
+## License
+
+MIT af, but if you're using the scripts a [GitHub sponsorship](https://github.com/sponsors/tholman) or [shouting me a coffee](https://www.buymeacoffee.com/tholman) would always be appreciated :)
