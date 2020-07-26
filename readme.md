@@ -52,7 +52,7 @@ new fairyDustCursor({colors: ["#ff0000", "#00ff00", "#0000ff"]});
 You can change the emoji in `emojiCursor`'s emoji with the `emoji` option (a list of emoji)
 
 ```
-new emojiCursor({colors: ["🔥", "🐬", "🦆"]});
+new emojiCursor({emoji: ["🔥", "🐬", "🦆"]});
 ```
 
 ## NPM
