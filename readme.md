@@ -1,7 +1,7 @@
 # 90's Cursor Effects
 _"Knowing the codes" used to be all the rage, I want to bring a few back._
 
-A repo of the old effects that inspired creativity and the desire to learn at least a little code around the world. Modernised so they're a little more efficient, and just as annoying (and twice as fun) as they were before.
+A repo of the old effects that inspired creativity and the desire to learn at least a little code around the world. Modernised so they're a little more efficient, and just as annoying (and twice as fun) as they were before. [Have a play here](https://tholman.com/cursor-effects/).
 
 
 ## How to Use
@@ -52,7 +52,7 @@ new fairyDustCursor({colors: ["#ff0000", "#00ff00", "#0000ff"]});
 You can change the emoji in `emojiCursor`'s emoji with the `emoji` option (a list of emoji)
 
 ```
-new emojiCursor({colors: ["🔥", "🐬", "🦆"]});
+new emojiCursor({emoji: ["🔥", "🐬", "🦆"]});
 ```
 
 ## NPM
