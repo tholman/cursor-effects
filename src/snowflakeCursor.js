@@ -41,9 +41,7 @@ function snowflakeCursor(options) {
       let bgContext = bgCanvas.getContext("2d")
 
       bgCanvas.width = measurements.width
-      bgCanvas.height =
-        measurements.actualBoundingBoxAscent +
-        measurements.actualBoundingBoxDescent
+      bgCanvas.height = measurements.actualBoundingBoxAscent * 2
 
       bgContext.textAlign = "center"
       bgContext.font = "12px serif"

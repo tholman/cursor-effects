@@ -42,8 +42,7 @@ function emojiCursor(options) {
 
       bgCanvas.width = measurements.width
       bgCanvas.height =
-        measurements.actualBoundingBoxAscent +
-        measurements.actualBoundingBoxDescent
+        measurements.actualBoundingBoxAscent * 2
 
       bgContext.textAlign = "center"
       bgContext.font = "21px serif"
