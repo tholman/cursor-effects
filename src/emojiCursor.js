@@ -7,6 +7,7 @@ function emojiCursor(options) {
   let height = window.innerHeight
   const cursor = { x: width / 2, y: width / 2 }
   const lastPos = { x: width / 2, y: width / 2 }
+  let lastTimestamp = 0
   const particles = []
   const canvImages = []
   let canvas, context
@@ -41,8 +42,7 @@ function emojiCursor(options) {
       let bgContext = bgCanvas.getContext("2d")
 
       bgCanvas.width = measurements.width
-      bgCanvas.height =
-        measurements.actualBoundingBoxAscent * 2
+      bgCanvas.height = measurements.actualBoundingBoxAscent * 2
 
       bgContext.textAlign = "center"
       bgContext.font = "21px serif"
@@ -62,9 +62,9 @@ function emojiCursor(options) {
 
   // Bind events that are needed
   function bindEvents() {
-    element.addEventListener("mousemove", onMouseMove)
-    element.addEventListener("touchmove", onTouchMove)
-    element.addEventListener("touchstart", onTouchMove)
+    element.addEventListener("mousemove", onMouseMove, { passive: true })
+    element.addEventListener("touchmove", onTouchMove, { passive: true })
+    element.addEventListener("touchstart", onTouchMove, { passive: true })
     window.addEventListener("resize", onWindowResize)
   }
 
@@ -94,6 +94,13 @@ function emojiCursor(options) {
   }
 
   function onMouseMove(e) {
+
+    // Dont run too fast
+    if(e.timeStamp - lastTimestamp < 15) {
+      return;
+    }
+
+
     window.requestAnimationFrame(() => {
       if (hasWrapperEl) {
         const boundingRect = element.getBoundingClientRect()
@@ -109,7 +116,7 @@ function emojiCursor(options) {
         cursor.y - lastPos.y
       )
 
-      if (distBetweenPoints > 2) {
+      if (distBetweenPoints > 1) {
         addParticle(
           cursor.x,
           cursor.y,
@@ -118,6 +125,7 @@ function emojiCursor(options) {
 
         lastPos.x = cursor.x
         lastPos.y = cursor.y
+        lastTimestamp = e.timeStamp
       }
     })
   }
