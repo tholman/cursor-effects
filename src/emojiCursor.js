@@ -94,12 +94,10 @@ function emojiCursor(options) {
   }
 
   function onMouseMove(e) {
-
     // Dont run too fast
-    if(e.timeStamp - lastTimestamp < 15) {
-      return;
+    if (e.timeStamp - lastTimestamp < 16) {
+      return
     }
-
 
     window.requestAnimationFrame(() => {
       if (hasWrapperEl) {
