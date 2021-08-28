@@ -1,0 +1,6 @@
+<script src="your/path/to/ghostCursor.js"></script>
+new ghostCursor();
+const targetElement = document.querySelector("#ghost")
+new ghostCursor({element: targetElement});
+new fairyDustCursor({colors: ["#ff0000", "#00ff00", "#0000ff"]});
+new emojiCursor({emoji: ["🔥", "🐬", "🦆"]});
