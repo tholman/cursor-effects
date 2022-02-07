@@ -1,5 +1,6 @@
 new fairyDustCursor({ element: document.querySelector("#fairyDust") })
 new ghostCursor({ element: document.querySelector("#ghost") })
+new trailingCursor({ element: document.querySelector("#trailing") })
 new springyEmojiCursor({ element: document.querySelector("#springs") })
 new emojiCursor({ element: document.querySelector("#emoji") })
 new bubbleCursor({ element: document.querySelector("#bubbles") })

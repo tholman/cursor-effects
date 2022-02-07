@@ -80,8 +80,8 @@ function springyEmojiCursor(options) {
   // Bind events that are needed
   function bindEvents() {
     element.addEventListener("mousemove", onMouseMove)
-    element.addEventListener("touchmove", onTouchMove)
-    element.addEventListener("touchstart", onTouchMove)
+    element.addEventListener("touchmove", onTouchMove, { passive: true })
+    element.addEventListener("touchstart", onTouchMove, { passive: true })
     window.addEventListener("resize", onWindowResize)
   }
 
