@@ -1,4 +1,4 @@
-function emojiCursor(options) {
+export function emojiCursor(options) {
   const possibleEmoji = (options && options.emoji) || ["😀", "😂", "😆", "😊"]
   let hasWrapperEl = options && options.element
   let element = hasWrapperEl || document.body
