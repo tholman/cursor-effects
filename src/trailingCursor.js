@@ -1,7 +1,7 @@
 // The trailing cursor's easing has bene pulled from this demo
 // - https://codepen.io/jakedeakin/full/MWKQVxX
 
-function trailingCursor(options) {
+export function trailingCursor(options) {
   let hasWrapperEl = options && options.element;
   let element = hasWrapperEl || document.body;
 

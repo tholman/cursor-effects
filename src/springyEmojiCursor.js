@@ -1,7 +1,7 @@
 // The springy emoji effect has been translated over from this old
 // code, to modern js & canvas
 // - http://www.yaldex.com/FSMessages/ElasticBullets.htm
-function springyEmojiCursor(options) {
+export function springyEmojiCursor(options) {
   let emoji = (options && options.emoji) || "🤪"
   let hasWrapperEl = options && options.element
   let element = hasWrapperEl || document.body

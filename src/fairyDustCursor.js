@@ -1,4 +1,4 @@
-function fairyDustCursor(options) {
+export function fairyDustCursor(options) {
   let possibleColors = (options && options.colors) || [
     "#D61C59",
     "#E7D84B",

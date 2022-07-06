@@ -12,26 +12,35 @@ The current effects are:
 - Snowflake Particles
 - Fairy Dust
 
-## How to Use
-For the most part these scripts are plug and play.
+# How to Use
 
-Include the script in your HTML... 
+You need to include the following script tag in your webpage (see next section if you want to use this package via npm).
 
+```html
+<script src="https://cdn.jsdelivr.net/npm/cursor-effects/dist/browser.js"></script>
 ```
-<script src="your/path/to/ghostCursor.js"></script>
+
+Alternatively you can use a `type="module"` script on newer browsers with a import statement
+
+```html
+<script type="module">
+import cursoreffects from 'https://cdn.jsdelivr.net/npm/cursor-effects@2/dist/esm.js';
+
+new cursoreffects.ghostCursor();
+</script>
 ```
 
 And then create a new instance of its type in your JavaScript. The script will create the canvas that is used, so nothing else is really needed.
 
-```
-new ghostCursor();
+```js
+new cursoreffects.ghostCursor();
 ```
 
 You can also target specific elements, to have the canvas appear inside those, for example:
 
-```
+```js
 const targetElement = document.querySelector("#ghost")
-new ghostCursor({element: targetElement});
+new cursoreffects.ghostCursor({element: targetElement});
 ```
 
 ## Specific Customization
@@ -42,16 +51,16 @@ A few of these have custom options as well (if you are interested in more option
 
 You can change the emoji in `springyEmojiCursor`'s emoji with the `emoji` a single string emoji.
 
-```
-new springyEmojiCursor({emoji: "🤷‍♂️"});
+```js
+new cursoreffects.springyEmojiCursor({emoji: "🤷‍♂️"});
 ```
 
 ### fairyDustCursor
 
 You can change the emoji in `fairyDustCursor`'s colors with the `colors` option (an array of colors)
 
-```
-new fairyDustCursor({colors: ["#ff0000", "#00ff00", "#0000ff"]});
+```js
+new cursoreffects.fairyDustCursor({colors: ["#ff0000", "#00ff00", "#0000ff"]});
 ```
 
 ### emojiCursor
@@ -59,13 +68,22 @@ new fairyDustCursor({colors: ["#ff0000", "#00ff00", "#0000ff"]});
 
 You can change the emoji in `emojiCursor`'s emoji with the `emoji` option (a list of emoji)
 
-```
-new emojiCursor({emoji: ["🔥", "🐬", "🦆"]});
+```js
+new cursoreffects.emojiCursor({emoji: ["🔥", "🐬", "🦆"]});
 ```
 
-## NPM
-I haven't got around to it yet, but if you'd like to make a rollup that compiles everything all nice, be my guest... otherwise I'll get to it eventually!
+# NPM
 
-## License
+```sh
+npm install cursor-effects
+```
+
+```js
+import { emojiCursor } from 'cursor-effects';
+
+new emojiCursor({ emoji: ["🔥", "🐬", "🦆"] });
+```
+
+# License
 
 MIT af, but if you're using the scripts a [GitHub sponsorship](https://github.com/sponsors/tholman) or [shouting me a coffee](https://www.buymeacoffee.com/tholman) would always be appreciated :)
