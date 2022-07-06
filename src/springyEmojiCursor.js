@@ -130,7 +130,7 @@ export function springyEmojiCursor(options) {
     particles[0].position.y = cursor.y
 
     // Start from 2nd dot
-    for (i = 1; i < nDots; i++) {
+    for (let i = 1; i < nDots; i++) {
       let spring = new vec(0, 0)
 
       if (i > 0) {

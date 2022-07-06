@@ -1,5 +1,5 @@
 {
-  "name": "@willowst/cursor-effects",
+  "name": "cursor-effects",
   "type": "module",
   "description": "Only 90's kids remember... well not really, but these beloved effects that would follow your mouse around will always be classic reminders of the old, beloved internet.",
   "version": "1.0.0",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/tholman/cursor-effects#readme",
   "devDependencies": {
-    "rollup": "^2.68.0",
+    "rollup": "^2.75.7",
     "rollup-plugin-terser": "^7.0.2"
   },
   "scripts": {
