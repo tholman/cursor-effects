@@ -12,6 +12,11 @@
       "import": "./dist/esm.js"
     }
   },
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tholman/cursor-effects.git"
