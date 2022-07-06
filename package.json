@@ -1,8 +1,8 @@
 {
-  "name": "@tholman/cursor-effects",
+  "name": "cursor-effects",
   "type": "module",
   "description": "Old-school cursor effects for your browser built in modern JavaScript.",
-  "version": "1.0.3",
+  "version": "1.0.2",
   "main": "./dist/cjs.cjs",
   "module": "./dist/esm.js",
   "exports": {
@@ -14,7 +14,6 @@
   },
   "files": ["dist"],
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/tholman",
     "access": "public",
     "directory": "dist"
   },
