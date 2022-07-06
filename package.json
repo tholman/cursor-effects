@@ -1,8 +1,8 @@
 {
   "name": "cursor-effects",
   "type": "module",
-  "description": "Only 90's kids remember... well not really, but these beloved effects that would follow your mouse around will always be classic reminders of the old, beloved internet.",
-  "version": "1.0.0",
+  "description": "Old-school cursor effects for your browser built in modern JavaScript.",
+  "version": "1.0.1",
   "main": "./dist/cjs.cjs",
   "module": "./dist/esm.js",
   "exports": {
