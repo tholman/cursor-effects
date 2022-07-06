@@ -1,5 +1,5 @@
 {
-  "name": "cursor-effects",
+  "name": "@tholman/cursor-effects",
   "type": "module",
   "description": "Old-school cursor effects for your browser built in modern JavaScript.",
   "version": "1.0.3",
