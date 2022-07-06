@@ -17,14 +17,14 @@ The current effects are:
 You need to include the following script tag in your webpage (see next section if you want to use this package via npm).
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/cursor-effects/dist/browser.js"></script>
+<script src="https://unpkg.com/cursor-effects@1.0.1/dist/browser.js"></script>
 ```
 
 Alternatively you can use a `type="module"` script on newer browsers with a import statement
 
 ```html
 <script type="module">
-import cursoreffects from 'https://cdn.jsdelivr.net/npm/cursor-effects@2/dist/esm.js';
+import cursoreffects from 'https://unpkg.com/cursor-effects@1.0.1/dist/esm.js';
 
 new cursoreffects.ghostCursor();
 </script>
@@ -41,6 +41,18 @@ You can also target specific elements, to have the canvas appear inside those, f
 ```js
 const targetElement = document.querySelector("#ghost")
 new cursoreffects.ghostCursor({element: targetElement});
+```
+
+### or you can use NPM
+
+```sh
+npm install cursor-effects
+```
+
+```js
+import { emojiCursor } from 'cursor-effects';
+
+new emojiCursor({ emoji: ["🔥", "🐬", "🦆"] });
 ```
 
 ## Specific Customization
@@ -70,18 +82,6 @@ You can change the emoji in `emojiCursor`'s emoji with the `emoji` option (a lis
 
 ```js
 new cursoreffects.emojiCursor({emoji: ["🔥", "🐬", "🦆"]});
-```
-
-# NPM
-
-```sh
-npm install cursor-effects
-```
-
-```js
-import { emojiCursor } from 'cursor-effects';
-
-new emojiCursor({ emoji: ["🔥", "🐬", "🦆"] });
 ```
 
 # License
