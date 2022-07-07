@@ -1,3 +1,4 @@
+new cursoreffects.rainbowCursor({ element: document.querySelector("#rainbow") })
 new cursoreffects.fairyDustCursor({ element: document.querySelector("#fairyDust") })
 new cursoreffects.ghostCursor({ element: document.querySelector("#ghost") })
 new cursoreffects.trailingCursor({ element: document.querySelector("#trailing") })

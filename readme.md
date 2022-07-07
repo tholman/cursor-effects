@@ -59,6 +59,14 @@ new emojiCursor({ emoji: ["🔥", "🐬", "🦆"] });
 
 A few of these have custom options as well (if you are interested in more options, opening an issue or PR is the way to go).
 
+### rainbowCursor
+
+You can change the colors, size and length in `rainbowCursor`
+
+```js
+new cursoreffects.rainbowCursor({length: 3, colors: ['red', 'blue'], size: 4});
+```
+
 ### springyEmojiCursor
 
 You can change the emoji in `springyEmojiCursor`'s emoji with the `emoji` a single string emoji.
