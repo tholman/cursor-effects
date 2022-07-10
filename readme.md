@@ -8,6 +8,7 @@ The current effects are:
 - Emoji Rain
 - Elastic Emoji
 - Ghost Following
+- Trailing Cursor
 - Following Dot
 - Bubbles Particles
 - Snowflake Particles
@@ -91,6 +92,15 @@ You can change the emoji in `emojiCursor`'s emoji with the `emoji` option (a lis
 
 ```js
 new cursoreffects.emojiCursor({emoji: ["🔥", "🐬", "🦆"]});
+```
+
+### trailingCursor
+
+
+You can change the number of trail steps in `trailingCursor` with the `particles` option (a number)
+
+```js
+new cursoreffects.trailingCursor({particles: 15});
 ```
 
 # License
