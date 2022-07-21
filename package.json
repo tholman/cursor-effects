@@ -12,7 +12,9 @@
       "import": "./dist/esm.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public",
     "directory": "dist"
@@ -28,7 +30,7 @@
   },
   "homepage": "https://github.com/tholman/cursor-effects#readme",
   "devDependencies": {
-    "rollup": "^2.75.7",
+    "rollup": "^2.77.0",
     "rollup-plugin-terser": "^7.0.2"
   },
   "scripts": {
