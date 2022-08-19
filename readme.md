@@ -13,6 +13,7 @@ The current effects are:
 - Bubbles Particles
 - Snowflake Particles
 - Fairy Dust
+- Clock Cursor
 
 # How to Use
 
