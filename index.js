@@ -7,3 +7,4 @@ new cursoreffects.springyEmojiCursor({ element: document.querySelector("#springs
 new cursoreffects.emojiCursor({ element: document.querySelector("#emoji") })
 new cursoreffects.bubbleCursor({ element: document.querySelector("#bubbles") })
 new cursoreffects.snowflakeCursor({ element: document.querySelector("#snowflake") })
+new cursoreffects.clockCursor({ element: document.querySelector("#clock") })
