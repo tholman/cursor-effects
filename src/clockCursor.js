@@ -1,3 +1,7 @@
+// The clock effect has been translated over from this old
+// code, to modern js & canvas
+// - https://web.archive.org/web/20041026003308/http://rainbow.arch.scriptmania.com/scripts/mouse_clock.html
+
 export function clockCursor(options) {
   let hasWrapperEl = options && options.element;
   let element = hasWrapperEl || document.body;
