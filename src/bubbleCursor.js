@@ -9,6 +9,7 @@ export function bubbleCursor(options) {
   let canvas, context
 
   let canvImages = []
+  let lastTime = 0;
 
   function init(wrapperEl) {
     canvas = document.createElement("canvas")
@@ -31,7 +32,7 @@ export function bubbleCursor(options) {
     }
 
     bindEvents()
-    loop()
+    requestAnimationFrame(loop);
   }
 
   // Bind events that are needed
@@ -84,12 +85,12 @@ export function bubbleCursor(options) {
     particles.push(new Particle(x, y, img))
   }
 
-  function updateParticles() {
+  function updateParticles(deltaTime) {
     context.clearRect(0, 0, width, height)
 
     // Update
     for (let i = 0; i < particles.length; i++) {
-      particles[i].update(context)
+      particles[i].update(context, deltaTime);
     }
 
     // Remove dead particles
@@ -100,8 +101,10 @@ export function bubbleCursor(options) {
     }
   }
 
-  function loop() {
-    updateParticles()
+  function loop(time) {
+    const deltaTime = Math.min(100, time - lastTime) / (1000 / 60); 
+    lastTime = time;
+    updateParticles(deltaTime)
     requestAnimationFrame(loop)
   }
 
@@ -118,13 +121,12 @@ export function bubbleCursor(options) {
 
     this.baseDimension = 4
 
-    this.update = function(context) {
-      this.position.x += this.velocity.x
-      this.position.y += this.velocity.y
-      this.velocity.x += ((Math.random() < 0.5 ? -1 : 1) * 2) / 75
-      this.velocity.y -= Math.random() / 600
-      this.lifeSpan--
-
+    this.update = function(context, deltaTime) {
+      this.position.x += this.velocity.x * deltaTime
+      this.position.y += this.velocity.y * deltaTime
+      this.velocity.x += ((Math.random() < 0.5 ? -1 : 1) * 2) / 75 * deltaTime
+      this.velocity.y -= Math.random() / 600 * deltaTime
+      this.lifeSpan -= deltaTime;
       const scale =
         0.2 + (this.initialLifeSpan - this.lifeSpan) / this.initialLifeSpan
 
