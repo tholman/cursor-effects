@@ -11,6 +11,7 @@ export function emojiCursor(options) {
   const particles = []
   const canvImages = []
   let canvas, context
+  let lastTime = 0;
 
   function init() {
     canvas = document.createElement("canvas")
@@ -57,7 +58,7 @@ export function emojiCursor(options) {
     })
 
     bindEvents()
-    loop()
+    requestAnimationFrame(loop);
   }
 
   // Bind events that are needed
@@ -132,12 +133,12 @@ export function emojiCursor(options) {
     particles.push(new Particle(x, y, img))
   }
 
-  function updateParticles() {
+  function updateParticles(deltaTime) {
     context.clearRect(0, 0, width, height)
 
     // Update
     for (let i = 0; i < particles.length; i++) {
-      particles[i].update(context)
+      particles[i].update(context, deltaTime)
     }
 
     // Remove dead particles
@@ -148,8 +149,10 @@ export function emojiCursor(options) {
     }
   }
 
-  function loop() {
-    updateParticles()
+  function loop(time) {
+    const deltaTime = Math.min(100, time - lastTime) / (1000 / 60); 
+    lastTime = time;
+    updateParticles(deltaTime)
     requestAnimationFrame(loop)
   }
 
@@ -168,12 +171,12 @@ export function emojiCursor(options) {
     this.position = { x: x, y: y }
     this.canv = canvasItem
 
-    this.update = function(context) {
-      this.position.x += this.velocity.x
-      this.position.y += this.velocity.y
-      this.lifeSpan--
+    this.update = function(context, deltaTime) {
+      this.position.x += this.velocity.x * deltaTime
+      this.position.y += this.velocity.y * deltaTime
+      this.lifeSpan -= deltaTime;
 
-      this.velocity.y += 0.05
+      this.velocity.y += 0.05 * deltaTime;
 
       const scale = Math.max(this.lifeSpan / this.initialLifeSpan, 0)
 

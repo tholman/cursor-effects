@@ -8,6 +8,7 @@ export function snowflakeCursor(options) {
   let cursor = { x: width / 2, y: width / 2 }
   let particles = []
   let canvas, context
+  let lastTime = 0
 
   let canvImages = []
 
@@ -56,7 +57,7 @@ export function snowflakeCursor(options) {
     })
 
     bindEvents()
-    loop()
+    requestAnimationFrame(loop)
   }
 
   // Bind events that are needed
@@ -113,12 +114,12 @@ export function snowflakeCursor(options) {
     particles.push(new Particle(x, y, img))
   }
 
-  function updateParticles() {
+  function updateParticles(deltaTime) {
     context.clearRect(0, 0, width, height)
 
     // Update
     for (let i = 0; i < particles.length; i++) {
-      particles[i].update(context)
+      particles[i].update(context, deltaTime)
     }
 
     // Remove dead particles
@@ -129,8 +130,10 @@ export function snowflakeCursor(options) {
     }
   }
 
-  function loop() {
-    updateParticles()
+  function loop(time) {
+    const deltaTime = Math.min(100, time - lastTime) / (1000 / 60);
+    lastTime = time;
+    updateParticles(deltaTime)
     requestAnimationFrame(loop)
   }
 
@@ -149,13 +152,13 @@ export function snowflakeCursor(options) {
     this.position = { x: x, y: y }
     this.canv = canvasItem
 
-    this.update = function(context) {
-      this.position.x += this.velocity.x
-      this.position.y += this.velocity.y
-      this.lifeSpan--
+    this.update = function(context, deltaTime) {
+      this.position.x += this.velocity.x * deltaTime
+      this.position.y += this.velocity.y * deltaTime
+      this.lifeSpan -= deltaTime;
 
-      this.velocity.x += ((Math.random() < 0.5 ? -1 : 1) * 2) / 75
-      this.velocity.y -= Math.random() / 300
+      this.velocity.x += ((Math.random() < 0.5 ? -1 : 1) * 2) / 75 * deltaTime
+      this.velocity.y -= Math.random() / (300 * deltaTime)
 
       const scale = Math.max(this.lifeSpan / this.initialLifeSpan, 0)
 

@@ -10,6 +10,7 @@ export function clockCursor(options) {
   let height = window.innerHeight;
   let cursor = { x: width / 2, y: width / 2 };
   let canvas, context;
+  let lastTime = 0;
 
   const dateColor = (options && options.dateColor) || "blue";
   const faceColor = (options && options.faceColor) || "black";
@@ -182,7 +183,7 @@ export function clockCursor(options) {
     }
 
     bindEvents();
-    loop();
+    requestAnimationFrame(loop);
   }
 
   // Bind events that are needed
@@ -230,14 +231,14 @@ export function clockCursor(options) {
     }
   }
 
-  function updatePositions() {
+  function updatePositions(deltaTime) {
     let widthBuffer = 80;
 
-    zy[0] = Math.round((dy[0] += (cursor.y - dy[0]) * del));
-    zx[0] = Math.round((dx[0] += (cursor.x - dx[0]) * del));
+    zy[0] = Math.round((dy[0] += (cursor.y - dy[0]) * del * deltaTime));
+    zx[0] = Math.round((dx[0] += (cursor.x - dx[0]) * del * deltaTime));
     for (let i = 1; i < sum; i++) {
-      zy[i] = Math.round((dy[i] += (zy[i - 1] - dy[i]) * del));
-      zx[i] = Math.round((dx[i] += (zx[i - 1] - dx[i]) * del));
+      zy[i] = Math.round((dy[i] += (zy[i - 1] - dy[i]) * del * deltaTime));
+      zx[i] = Math.round((dx[i] += (zx[i - 1] - dx[i]) * del * deltaTime));
       if (dy[i - 1] >= height - 80) dy[i - 1] = height - 80;
       if (dx[i - 1] >= width - widthBuffer) dx[i - 1] = width - widthBuffer;
     }
@@ -315,8 +316,10 @@ export function clockCursor(options) {
     }
   }
 
-  function loop() {
-    updatePositions();
+  function loop(time) {
+    const deltaTime = Math.min(100, time - lastTime) / (1000 / 60);
+    lastTime = time;
+    updatePositions(deltaTime);
     updateParticles();
 
     requestAnimationFrame(loop);

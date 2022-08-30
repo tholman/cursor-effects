@@ -7,6 +7,7 @@ export function ghostCursor(options) {
   let cursor = { x: width / 2, y: width / 2 };
   let particles = [];
   let canvas, context;
+  let lastTime = 0;
 
   let baseImage = new Image();
   baseImage.src =
@@ -32,7 +33,7 @@ export function ghostCursor(options) {
     }
 
     bindEvents();
-    loop();
+    requestAnimationFrame(loop);
   }
 
   // Bind events that are needed
@@ -81,12 +82,12 @@ export function ghostCursor(options) {
     particles.push(new Particle(x, y, image));
   }
 
-  function updateParticles() {
+  function updateParticles(deltaTime) {
     context.clearRect(0, 0, width, height);
 
     // Update
     for (let i = 0; i < particles.length; i++) {
-      particles[i].update(context);
+      particles[i].update(context, deltaTime);
     }
 
     // Remove dead particles
@@ -97,8 +98,10 @@ export function ghostCursor(options) {
     }
   }
 
-  function loop() {
-    updateParticles();
+  function loop(time) {
+    const deltaTime = Math.min(100, time - lastTime) / (1000 / 60);
+    lastTime = time;
+    updateParticles(deltaTime);
     requestAnimationFrame(loop);
   }
 
@@ -114,8 +117,8 @@ export function ghostCursor(options) {
 
     this.image = image;
 
-    this.update = function (context) {
-      this.lifeSpan--;
+    this.update = function (context, deltaTime) {
+      this.lifeSpan -= deltaTime;
       const opacity = Math.max(this.lifeSpan / this.initialLifeSpan, 0);
 
       context.globalAlpha = opacity;

@@ -23,6 +23,7 @@ export function springyEmojiCursor(options) {
   let cursor = { x: width / 2, y: width / 2 }
   let particles = []
   let canvas, context
+  let lastTime = 0;
 
   let emojiAsImage
 
@@ -74,7 +75,7 @@ export function springyEmojiCursor(options) {
     }
 
     bindEvents()
-    loop()
+    requestAnimationFrame(loop);
   }
 
   // Bind events that are needed
@@ -122,7 +123,7 @@ export function springyEmojiCursor(options) {
     }
   }
 
-  function updateParticles() {
+  function updateParticles(deltaTime) {
     canvas.width = canvas.width
 
     // follow mouse
@@ -151,8 +152,8 @@ export function springyEmojiCursor(options) {
         (spring.Y + resist.Y) / MASS + GRAVITY
       )
 
-      particles[i].velocity.x += DELTAT * accel.X
-      particles[i].velocity.y += DELTAT * accel.Y
+      particles[i].velocity.x += DELTAT * accel.X * deltaTime
+      particles[i].velocity.y += DELTAT * accel.Y * deltaTime
 
       if (
         Math.abs(particles[i].velocity.x) < STOPVEL &&
@@ -164,8 +165,8 @@ export function springyEmojiCursor(options) {
         particles[i].velocity.y = 0
       }
 
-      particles[i].position.x += particles[i].velocity.x
-      particles[i].position.y += particles[i].velocity.y
+      particles[i].position.x += particles[i].velocity.x * deltaTime;
+      particles[i].position.y += particles[i].velocity.y * deltaTime;
 
       let height, width
       height = canvas.clientHeight
@@ -196,8 +197,10 @@ export function springyEmojiCursor(options) {
     }
   }
 
-  function loop() {
-    updateParticles()
+  function loop(time) {
+    const deltaTime = Math.min(100, time - lastTime) / (1000 / 60);
+    lastTime = time;
+    updateParticles(deltaTime)
     requestAnimationFrame(loop)
   }
 

@@ -7,6 +7,7 @@ export function followingDotCursor(options) {
   let cursor = { x: width / 2, y: width / 2 };
   let dot = new Dot(width / 2, height / 2, 10, 10);
   let canvas, context;
+  let lastTime = 0;
 
   function init() {
     canvas = document.createElement("canvas");
@@ -28,7 +29,7 @@ export function followingDotCursor(options) {
     }
 
     bindEvents();
-    loop();
+    requestAnimationFrame(loop);
   }
 
   // Bind events that are needed
@@ -61,14 +62,16 @@ export function followingDotCursor(options) {
     }
   }
 
-  function updateDot() {
+  function updateDot(deltaTime) {
     context.clearRect(0, 0, width, height);
 
-    dot.moveTowards(cursor.x, cursor.y, context);
+    dot.moveTowards(cursor.x, cursor.y, context, deltaTime);
   }
 
-  function loop() {
-    updateDot();
+  function loop(time) {
+    const deltaTime = Math.min(100, time - lastTime) / (1000 / 60);
+    lastTime = time;
+    updateDot(deltaTime);
     requestAnimationFrame(loop);
   }
 
@@ -77,9 +80,9 @@ export function followingDotCursor(options) {
     this.width = width;
     this.lag = lag;
 
-    this.moveTowards = function (x, y, context) {
-      this.position.x += (x - this.position.x) / this.lag;
-      this.position.y += (y - this.position.y) / this.lag;
+    this.moveTowards = function (x, y, context, deltaTime) {
+      this.position.x += (x - this.position.x) / (this.lag / deltaTime);
+      this.position.y += (y - this.position.y) / (this.lag / deltaTime);
 
       context.fillStyle = "rgba(50, 50, 50, 0.65)";
       context.beginPath();
