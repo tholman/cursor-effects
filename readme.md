@@ -103,6 +103,12 @@ You can change the number of trail steps in `trailingCursor` with the `particles
 ```js
 new cursoreffects.trailingCursor({particles: 15});
 ```
+You can change the color of the following dot in `followingDotCursor` with the `color` option (hex)
+
+```js
+new cursoreffects.followingDotCursor({color: ["#F9A124"]})
+
+```
 
 # License
 
