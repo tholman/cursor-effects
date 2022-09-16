@@ -7,7 +7,7 @@ export function followingDotCursor(options) {
   let cursor = { x: width / 2, y: width / 2 };
   let dot = new Dot(width / 2, height / 2, 10, 10);
   let canvas, context;
-  let color = options?.color || "##5b5b5b";
+  let color = options?.color || "#5b5b5b";
 
   function init() {
     canvas = document.createElement("canvas");
