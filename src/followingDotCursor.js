@@ -7,6 +7,7 @@ export function followingDotCursor(options) {
   let cursor = { x: width / 2, y: width / 2 };
   let dot = new Dot(width / 2, height / 2, 10, 10);
   let canvas, context;
+  let color = options?.color || "#323232a6";
 
   function init() {
     canvas = document.createElement("canvas");
@@ -81,7 +82,7 @@ export function followingDotCursor(options) {
       this.position.x += (x - this.position.x) / this.lag;
       this.position.y += (y - this.position.y) / this.lag;
 
-      context.fillStyle = "rgba(50, 50, 50, 0.65)";
+      context.fillStyle = color;
       context.beginPath();
       context.arc(this.position.x, this.position.y, this.width, 0, 2 * Math.PI);
       context.fill();
