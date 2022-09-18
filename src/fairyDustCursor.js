@@ -17,8 +17,26 @@ export function fairyDustCursor(options) {
 
   const char = "*";
 
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  );
+
+  // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
+  prefersReducedMotion.onchange = () => {
+    if (prefersReducedMotion.matches) {
+      destroy();
+    } else {
+      init();
+    }
+  }
+
   function init() {
-    canvas = document.createElement("canvas");
+    // Don't show the cursor trail if the user has prefers-reduced-motion enabled
+    if (prefersReducedMotion.matches) {
+      return false;
+    }
+    canvas = document.createElement('canvas');
+    canvas.id = 'cursor-trail';
     context = canvas.getContext("2d");
     canvas.style.top = "0px";
     canvas.style.left = "0px";
@@ -153,6 +171,15 @@ export function fairyDustCursor(options) {
     updateParticles();
     requestAnimationFrame(loop);
   }
+
+
+  function destroy() {
+    const cursor = document.getElementById('cursor-trail')
+    if (cursor) {
+      cursor.remove()
+    }
+  }
+
 
   function Particle(x, y, canvasItem) {
     const lifeSpan = Math.floor(Math.random() * 30 + 60);

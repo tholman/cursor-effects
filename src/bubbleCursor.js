@@ -10,8 +10,26 @@ export function bubbleCursor(options) {
 
   let canvImages = []
 
-  function init(wrapperEl) {
-    canvas = document.createElement("canvas")
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  )
+
+  // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
+  prefersReducedMotion.onchange = () => {
+    if (prefersReducedMotion.matches) {
+      destroy()
+    } else {
+      init()
+    }
+  }
+
+  function init() {
+    // Don't show the cursor trail if the user has prefers-reduced-motion enabled
+    if (prefersReducedMotion.matches) {
+      return false
+    }
+    canvas = document.createElement('canvas')
+    canvas.id = 'cursor-trail'
     context = canvas.getContext("2d")
 
     canvas.style.top = "0px"
@@ -105,6 +123,13 @@ export function bubbleCursor(options) {
     requestAnimationFrame(loop)
   }
 
+  function destroy() {
+    const cursor = document.getElementById('cursor-trail')
+    if (cursor) {
+      cursor.remove()
+    }
+  }
+  
   function Particle(x, y, canvasItem) {
     const lifeSpan = Math.floor(Math.random() * 60 + 60)
     this.initialLifeSpan = lifeSpan //
