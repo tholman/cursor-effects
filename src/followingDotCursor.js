@@ -9,8 +9,26 @@ export function followingDotCursor(options) {
   let canvas, context;
   let color = options?.color || "#323232a6";
 
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  );
+
+  // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
+  prefersReducedMotion.onchange = () => {
+    if (prefersReducedMotion.matches) {
+      destroy();
+    } else {
+      init();
+    }
+  };
+
   function init() {
-    canvas = document.createElement("canvas");
+    // Don't show the cursor trail if the user has prefers-reduced-motion enabled
+    if (prefersReducedMotion.matches) {
+      return false;
+    }
+    canvas = document.createElement('canvas');
+    canvas.id = 'cursor-trail';
     context = canvas.getContext("2d");
     canvas.style.top = "0px";
     canvas.style.left = "0px";
@@ -71,6 +89,13 @@ export function followingDotCursor(options) {
   function loop() {
     updateDot();
     requestAnimationFrame(loop);
+  }
+
+  function destroy() {
+    const cursor = document.getElementById('cursor-trail');
+    if (cursor) {
+      cursor.remove();
+    }
   }
 
   function Dot(x, y, width, lag) {

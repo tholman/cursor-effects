@@ -94,6 +94,8 @@ You can change the emoji in `emojiCursor`'s emoji with the `emoji` option (a lis
 ```js
 new cursoreffects.emojiCursor({emoji: ["🔥", "🐬", "🦆"]});
 ```
+## Accessibility
+The cursor won't display if the user's system accessibility settings have [prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) enabled.
 
 ### trailingCursor
 
