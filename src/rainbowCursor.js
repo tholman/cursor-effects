@@ -6,7 +6,7 @@ export function rainbowCursor(options) {
   let height = window.innerHeight;
   let cursor = { x: width / 2, y: width / 2 };
   let particles = [];
-  let canvas, context;
+  let canvas, context, animationFrame;
 
   const totalParticles = options?.length || 20;
   const colors = options?.colors || [
@@ -16,19 +16,19 @@ export function rainbowCursor(options) {
     "#119F0B",
     "#0644B3",
     "#C22EDC",
-  ]
-  const size = options.size || 3
+  ];
+  const size = options.size || 3;
 
   let cursorsInitted = false;
 
   const prefersReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
+    "(prefers-reduced-motion: reduce)"
   );
 
   // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
   prefersReducedMotion.onchange = () => {
     if (prefersReducedMotion.matches) {
-      destroy();
+      this.destroy();
     } else {
       init();
     }
@@ -37,10 +37,13 @@ export function rainbowCursor(options) {
   function init() {
     // Don't show the cursor trail if the user has prefers-reduced-motion enabled
     if (prefersReducedMotion.matches) {
+      console.log(
+        "This browser has prefers reduced motion turned on, so the cursor did not init"
+      );
       return false;
     }
-    canvas = document.createElement('canvas');
-    canvas.id = 'cursor-trail';
+
+    canvas = document.createElement("canvas");
     context = canvas.getContext("2d");
     canvas.style.top = "0px";
     canvas.style.left = "0px";
@@ -149,15 +152,15 @@ export function rainbowCursor(options) {
 
   function loop() {
     updateParticles();
-    requestAnimationFrame(loop);
+    animationFrame = requestAnimationFrame(loop);
   }
 
-  function destroy() {
-    const cursor = document.getElementById('cursor-trail');
-    if (cursor) {
-      cursor.remove();
-    }
-  }
+  this.destroy = () => {
+    canvas.remove();
+    cancelAnimationFrame(animationFrame);
+    element.removeEventListener("mousemove", onMouseMove);
+    window.addEventListener("resize", onWindowResize);
+  };
 
   function Particle(x, y) {
     this.position = { x: x, y: y };

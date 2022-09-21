@@ -9,7 +9,7 @@ export function clockCursor(options) {
   let width = window.innerWidth;
   let height = window.innerHeight;
   let cursor = { x: width / 2, y: width / 2 };
-  let canvas, context;
+  let canvas, context, animationFrame;
 
   const dateColor = (options && options.dateColor) || "blue";
   const faceColor = (options && options.faceColor) || "black";
@@ -110,13 +110,13 @@ export function clockCursor(options) {
     ) + 1;
 
   const prefersReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
+    "(prefers-reduced-motion: reduce)"
   );
 
   // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
   prefersReducedMotion.onchange = () => {
     if (prefersReducedMotion.matches) {
-      destroy();
+      this.destroy();
     } else {
       init();
     }
@@ -125,10 +125,13 @@ export function clockCursor(options) {
   function init() {
     // Don't show the cursor trail if the user has prefers-reduced-motion enabled
     if (prefersReducedMotion.matches) {
+      console.log(
+        "This browser has prefers reduced motion turned on, so the cursor did not init"
+      );
       return false;
     }
-    canvas = document.createElement('canvas');
-    canvas.id = 'cursor-trail';  
+
+    canvas = document.createElement("canvas");
     context = canvas.getContext("2d");
 
     canvas.style.top = "0px";
@@ -227,12 +230,12 @@ export function clockCursor(options) {
   function onTouchMove(e) {
     if (e.touches.length > 0) {
       if (hasWrapperEl) {
-        const boundingRect = element.getBoundingClientRect()
-        cursor.x = e.touches[0].clientX - boundingRect.left
-        cursor.y = e.touches[0].clientY - boundingRect.top
+        const boundingRect = element.getBoundingClientRect();
+        cursor.x = e.touches[0].clientX - boundingRect.left;
+        cursor.y = e.touches[0].clientY - boundingRect.top;
       } else {
-        cursor.x = e.touches[0].clientX
-        cursor.y = e.touches[0].clientY
+        cursor.x = e.touches[0].clientX;
+        cursor.y = e.touches[0].clientY;
       }
     }
   }
@@ -337,15 +340,17 @@ export function clockCursor(options) {
     updatePositions();
     updateParticles();
 
-    requestAnimationFrame(loop);
+    animationFrame = requestAnimationFrame(loop);
   }
 
-  function destroy() {
-    const cursor = document.getElementById('cursor-trail');
-    if (cursor) {
-      cursor.remove();
-    }
-  }
+  this.destroy = () => {
+    canvas.remove();
+    cancelAnimationFrame(animationFrame);
+    element.removeEventListener("mousemove", onMouseMove);
+    element.removeEventListener("touchmove", onTouchMove);
+    element.removeEventListener("touchstart", onTouchMove);
+    window.addEventListener("resize", onWindowResize);
+  };
 
   init();
 }
