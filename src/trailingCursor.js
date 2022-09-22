@@ -11,7 +11,7 @@ export function trailingCursor(options) {
   let particles = [];
   let canvas, context, animationFrame;
 
-  const totalParticles = options.particles || 15;
+  const totalParticles = options?.particles || 15;
   let cursorsInitted = false;
 
   let baseImage = new Image();
