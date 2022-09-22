@@ -17,7 +17,7 @@ export function rainbowCursor(options) {
     "#0644B3",
     "#C22EDC",
   ];
-  const size = options.size || 3;
+  const size = options?.size || 3;
 
   let cursorsInitted = false;
 
