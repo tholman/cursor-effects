@@ -33,7 +33,7 @@ export function springyEmojiCursor(options) {
   // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
   prefersReducedMotion.onchange = () => {
     if (prefersReducedMotion.matches) {
-      this.destroy();
+      destroy();
     } else {
       init();
     }
@@ -222,7 +222,7 @@ export function springyEmojiCursor(options) {
     animationFrame = requestAnimationFrame(loop);
   }
 
-  this.destroy = () => {
+  function destroy() {
     canvas.remove();
     cancelAnimationFrame(animationFrame);
     element.removeEventListener("mousemove", onMouseMove);
@@ -268,4 +268,8 @@ export function springyEmojiCursor(options) {
   }
 
   init();
+
+  return {
+    destroy: destroy
+  }
 }

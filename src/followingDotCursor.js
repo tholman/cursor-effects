@@ -16,7 +16,7 @@ export function followingDotCursor(options) {
   // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
   prefersReducedMotion.onchange = () => {
     if (prefersReducedMotion.matches) {
-      this.destroy();
+      destroy();
     } else {
       init();
     }
@@ -94,7 +94,7 @@ export function followingDotCursor(options) {
     animationFrame = requestAnimationFrame(loop);
   }
 
-  this.destroy = () => {
+  function destroy() {
     canvas.remove();
     cancelAnimationFrame(loop);
     element.removeEventListener("mousemove", onMouseMove);
@@ -119,4 +119,8 @@ export function followingDotCursor(options) {
   }
 
   init();
+
+  return {
+    destroy: destroy
+  }
 }

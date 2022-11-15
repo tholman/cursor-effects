@@ -25,7 +25,7 @@ export function trailingCursor(options) {
   // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
   prefersReducedMotion.onchange = () => {
     if (prefersReducedMotion.matches) {
-      this.destroy();
+      destroy();
     } else {
       init();
     }
@@ -125,7 +125,7 @@ export function trailingCursor(options) {
     animationFrame = requestAnimationFrame(loop);
   }
 
-  this.destroy = () => {
+  function destroy() {
     canvas.remove();
     cancelAnimationFrame(animationFrame);
     element.removeEventListener("mousemove", onMouseMove);
@@ -150,4 +150,8 @@ export function trailingCursor(options) {
   }
 
   init();
+
+  return {
+    destroy: destroy
+  }
 }

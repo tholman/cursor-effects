@@ -116,7 +116,7 @@ export function clockCursor(options) {
   // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
   prefersReducedMotion.onchange = () => {
     if (prefersReducedMotion.matches) {
-      this.destroy();
+      destroy();
     } else {
       init();
     }
@@ -343,14 +343,18 @@ export function clockCursor(options) {
     animationFrame = requestAnimationFrame(loop);
   }
 
-  this.destroy = () => {
+  function destroy() {
     canvas.remove();
     cancelAnimationFrame(animationFrame);
     element.removeEventListener("mousemove", onMouseMove);
     element.removeEventListener("touchmove", onTouchMove);
     element.removeEventListener("touchstart", onTouchMove);
     window.addEventListener("resize", onWindowResize);
-  };
+  }
 
   init();
+
+  return {
+    destroy: destroy,
+  };
 }
