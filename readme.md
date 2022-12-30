@@ -1,4 +1,4 @@
-# 90's Cursor Effects
+# ’90s Cursor Effects
 _"Knowing the codes" used to be all the rage, I want to bring a few back._
 
 A repo of the old effects that inspired creativity and the desire to learn at least a little code around the world. Modernised so they're a little more efficient, and just as annoying (and twice as fun) as they were before. [Have a play here](https://tholman.com/cursor-effects).
@@ -17,26 +17,28 @@ The current effects are:
 
 # How to Use
 
-You need to include the following script tag in your webpage (see next section if you want to use this package via npm).
+You need to include the following script tag in your webpage (see next section if you want to use this package via npm). And then, once the script is loaded you'll be able to add the effects to the page
 
 ```html
 <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
 ```
 
-Alternatively you can use a `type="module"` script on newer browsers with a import statement
+Alternatively you can use a `type="module"` script on newer browsers with a import statement, if you are using the esm module you will import the cursor specific to your needs, rather than having to use the `cursoreffects.x` style.
 
 ```html
 <script type="module">
-import cursoreffects from 'https://unpkg.com/cursor-effects@latest/dist/esm.js';
+  import { fairyDustCursor } from 'https://unpkg.com/cursor-effects@latest/dist/esm.js'
 
-new cursoreffects.ghostCursor();
+  new fairyDustCursor();
 </script>
 ```
 
 And then create a new instance of its type in your JavaScript. The script will create the canvas that is used, so nothing else is really needed.
 
 ```js
-new cursoreffects.ghostCursor();
+window.addEventListener('load', (event) => {
+  new cursoreffects.ghostCursor();
+});
 ```
 
 You can also target specific elements, to have the canvas appear inside those, for example:
