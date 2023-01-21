@@ -106,6 +106,10 @@ export function bubbleCursor(options) {
   }
 
   function updateParticles() {
+    if (particles.length == 0) {
+      return;
+    }
+
     context.clearRect(0, 0, width, height);
 
     // Update
@@ -118,6 +122,10 @@ export function bubbleCursor(options) {
       if (particles[i].lifeSpan < 0) {
         particles.splice(i, 1);
       }
+    }
+
+    if (particles.length == 0) {
+      context.clearRect(0, 0, width, height);
     }
   }
 
