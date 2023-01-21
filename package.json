@@ -2,7 +2,7 @@
   "name": "cursor-effects",
   "type": "module",
   "description": "Old-school cursor effects for your browser built in modern JavaScript.",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "./dist/cjs.cjs",
   "module": "./dist/esm.js",
   "exports": {
