@@ -115,10 +115,10 @@ The cursor won't display if the user's system accessibility settings have [prefe
 
 ### trailingCursor
 
-You can change the number of trail steps in `trailingCursor` with the `particles` option (a number)
+You can change the number of trail steps in `trailingCursor` with the `particles` option (a number), the rate of the trail with the `rate` option (a number between 0 and 1, default is `0.4`), and the trailing cursor image with the `baseImageSrc` option (a URL or base64 string)
 
 ```js
-new cursoreffects.trailingCursor({ particles: 15 });
+new cursoreffects.trailingCursor({particles: 15, rate: 0.8, baseImageSrc: "data:image/png;base64,iVB..."});
 ```
 
 You can change the color of the following dot in `followingDotCursor` with the `color` option (hex)
