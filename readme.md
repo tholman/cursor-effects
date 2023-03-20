@@ -56,6 +56,16 @@ const targetElement = document.querySelector("#ghost");
 new cursoreffects.ghostCursor({ element: targetElement });
 ```
 
+To remove the effect, you can call `destroy` on it.
+```js
+// Create
+let cursorEffect = new ghostCursor();
+
+// Destroy
+cursorEffect.destroy()
+```
+
+
 ### or you can use NPM
 
 ```sh
