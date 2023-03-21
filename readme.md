@@ -122,7 +122,7 @@ new cursoreffects.emojiCursor({ emoji: ["🔥", "🐬", "🦆"] });
 ### textFlag
 
 You can change the  `textFlag`'s text with the `text` option (String),
-and color of the text with the `color` (an array)
+and color of the text with the `color` option (hex)
 
 ```js
  new textFlag({text: "test",color:["#FF6800"]});
