@@ -125,7 +125,7 @@ You can change the  `textFlag`'s text with the `text` option (String),
 and color of the text with the `color` (an array)
 
 ```js
- new textFlag({element: targetElement, text: "test",color:["#FF6800"]});
+ new textFlag({text: "test",color:["#FF6800"]});
 ```
 
 ## Accessibility
