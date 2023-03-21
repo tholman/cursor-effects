@@ -8,6 +8,8 @@ export function textFlag(options) {
   let element = hasWrapperEl || document.body;
 
   let text = cursorOptions.text ? " " + options.text : " Your Text Here";
+  let color = options?.color || "#000000";
+
 
   let font = cursorOptions.font || "monospace";
   let textSize = cursorOptions.textSize || 12;
@@ -119,6 +121,7 @@ export function textFlag(options) {
       charArray[i].x = charArray[i - 1].x + gap;
       charArray[i].y = charArray[i - 1].y;
 
+      context.fillStyle = color;
       context.font = fontFamily;
       context.fillText(charArray[i].letter, charArray[i].x, charArray[i].y);
     }
