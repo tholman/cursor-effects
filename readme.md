@@ -17,6 +17,7 @@ The current effects are:
 - Snowflake Particles
 - Fairy Dust
 - Clock Cursor
+- Character Cursor
 
 # How to Set Up Locally/Develop
 
@@ -145,6 +146,53 @@ You can change the color of the following dot in `followingDotCursor` with the `
 ```js
 new cursoreffects.followingDotCursor({ color: ["#323232a6"] });
 ```
+
+### characterCursor
+
+Consider this cursor as an extension of the snowflake cursor, but instead of the snowflake emoji you can specify a list of characters and colors to use as well as defining how the character's velocity, rotation and scaling should change over the characters lifespan, for example to produce the same effect you see in the demo page, you would use this. 
+
+```js
+new cursoreffects.characterCursor({ 
+    element: document.querySelector("#character"), 
+    characters: ["h", "e", "l", "l", "o"],
+    font: "15px serif",
+    colors: [
+        "#6622CC",
+        "#A755C2",
+        "#B07C9E",
+        "#B59194",
+        "#D2A1B8",
+    ],
+    characterLifeSpanFunction: function() {
+        return Math.floor(Math.random() * 60 + 80);
+    },
+    initialCharacterVelocityFunction: function() {
+        return {
+            x: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 5,
+            y: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 5,
+        }
+    },
+    characterVelocityChangeFunctions: {
+      x_func: function(age, lifeSpan) {
+        return (Math.random() < 0.5 ? -1 : 1)/30;
+      },
+      y_func: function(age, lifeSpan) {
+        return (Math.random() < 0.5 ? -1 : 1)/ 15;
+      },
+    },
+    characterScalingFunction: function(age, lifeSpan) {
+        let lifeLeft = lifeSpan - age;
+        return Math.max(lifeLeft / lifeSpan * 2, 0);
+    },
+    characterNewRotationDegreesFunction: function(age, lifeSpan) {
+        let lifeLeft = lifeSpan - age;
+        console.log(age, lifeSpan);
+        return lifeLeft / 5;
+    }
+})
+```
+
+Note that none of these behavior changing options are required but in that case it will use similar physics to the snowflake and use the asterisk character instead.
 
 # License
 
