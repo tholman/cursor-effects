@@ -2,6 +2,10 @@ export function ghostCursor(options) {
   let hasWrapperEl = options && options.element;
   let element = hasWrapperEl || document.body;
 
+  let randomDelay = options && options.randomDelay;
+  let minDelay = options && options.minDelay || 5;
+  let maxDelay = options && options.maxDelay || 50;
+
   let width = window.innerWidth;
   let height = window.innerHeight;
   let cursor = { x: width / 2, y: width / 2 };
@@ -89,7 +93,17 @@ export function ghostCursor(options) {
     }
   }
 
+  let getDelay = () => Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+  let lastTimeParticleAdded = Date.now(),
+      interval = getDelay();
+
   function onMouseMove(e) {
+    if (randomDelay) {
+      if (lastTimeParticleAdded + interval > Date.now()) return;
+      lastTimeParticleAdded = Date.now();
+      interval = getDelay();
+    }
+
     if (hasWrapperEl) {
       const boundingRect = element.getBoundingClientRect();
       cursor.x = e.clientX - boundingRect.left;
