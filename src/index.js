@@ -1,6 +1,7 @@
 export * from './springyEmojiCursor.js';
 export * from './fairyDustCursor.js';
 export * from './snowflakeCursor.js';
+export * from './characterCursor.js';
 export * from './trailingCursor.js';
 export * from './followingDotCursor.js'
 export * from './bubbleCursor.js';
