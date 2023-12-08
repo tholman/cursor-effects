@@ -149,8 +149,7 @@ new cursoreffects.followingDotCursor({ color: ["#323232a6"] });
 
 ### characterCursor
 
-Consider this cursor as an extension of the snowflake cursor, but instead of the snowflake emoji you can specify a list of characters and colors to use as well as defining how the character's velocity, rotation and scaling should change over the characters lifespan. For example to produce the same effect you see in the demo page, you would use this. 
-
+Consider this cursor as an extension of the snowflake cursor, but instead of the snowflake emoji you can specify a list of characters and colors to use as well as defining how the character's velocity, rotation and scaling should change over the characters lifespan. For example to produce the same effect you see in the demo page, you would use this. (It will also do this by default, but this is a great way to experiement and play around with the effect)
 ```js
 new cursoreffects.characterCursor({ 
     element: document.querySelector("#character"), 
