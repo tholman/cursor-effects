@@ -2,9 +2,13 @@ export function characterCursor(options) {
   let hasWrapperEl = options && options.element;
   let element = hasWrapperEl || document.body;
 
-  let possibleCharacters = options?.characters || ["*️"];
+  let possibleCharacters = options?.characters || ["h", "e", "l", "l", "o"];
   const colors = options?.colors || [
-    "#000000"
+    "#6622CC",
+    "#A755C2",
+    "#B07C9E",
+    "#B59194",
+    "#D2A1B8",
   ];
   let cursorOffset = options?.cursorOffset || {x: 0, y: 0}; 
   let width = window.innerWidth;
@@ -13,7 +17,7 @@ export function characterCursor(options) {
   let particles = [];
   let canvas, context, animationFrame;
 
-  let font = options?.font || "24px serif"
+  let font = options?.font || "15px serif"
 
   let randomPositiveOrNegativeOne = function() {
     return (Math.random() < 0.5 ? -1 : 1);
@@ -29,32 +33,32 @@ export function characterCursor(options) {
   let initialCharacterVelocityFunction = options?.initialCharacterVelocityFunction || 
   function() {
     return {
-      x: (Math.random() < 0.5 ? -1 : 1) * Math.random(),
-      y: 1 + Math.random(),
-    }
+      x: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 5,
+      y: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 5,
+  }
   };
 
   // Defines how the velocity should change (additively)
   let characterVelocityChangeFunctions = options?.characterVelocityChangeFunctions || {
       x_func: function(age, lifeSpan) {
-        return (randomPositiveOrNegativeOne() * 2) / 75;
+        return (Math.random() < 0.5 ? -1 : 1)/30;
       },
       y_func: function(age, lifeSpan) {
-        return - (Math.random() / 300);
+        return (Math.random() < 0.5 ? -1 : 1)/ 15;
       },
     };
 
   let characterScalingFunction = options?.characterScalingFunction || 
   function(age, lifeSpan) {
     let lifeLeft = lifeSpan - age;
-    return Math.max(lifeLeft / lifeSpan, 0);
+    return Math.max(lifeLeft / lifeSpan * 2, 0);
   }
 
   // Produces new angles for the character
   let characterNewRotationDegreesFunction = options?.characterNewRotationDegreesFunction || 
   function(age, lifeSpan) {
     let lifeLeft = lifeSpan - age;
-    return lifeLeft;
+    return lifeLeft / 5;
   };
 
   let canvImages = [];
