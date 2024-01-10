@@ -101,7 +101,7 @@ export function clockCursor(options) {
   const tmpd = [];
 
   var sum =
-    parseInt(
+    Number.parseInt(
       dateInWords.length +
         F +
         hourHand.length +
@@ -114,13 +114,13 @@ export function clockCursor(options) {
   );
 
   // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
-  prefersReducedMotion.onchange = () => {
+  prefersReducedMotion.addEventListener('change', () => {
     if (prefersReducedMotion.matches) {
       destroy();
     } else {
       init();
     }
-  };
+  });
 
   function init() {
     // Don't show the cursor trail if the user has prefers-reduced-motion enabled
@@ -140,12 +140,12 @@ export function clockCursor(options) {
 
     if (hasWrapperEl) {
       canvas.style.position = "absolute";
-      element.appendChild(canvas);
+      element.append(canvas);
       canvas.width = element.clientWidth;
       canvas.height = element.clientHeight;
     } else {
       canvas.style.position = "fixed";
-      document.body.appendChild(canvas);
+      document.body.append(canvas);
       canvas.width = width;
       canvas.height = height;
     }
@@ -252,7 +252,7 @@ export function clockCursor(options) {
   }
 
   function updatePositions() {
-    let widthBuffer = 80;
+    const widthBuffer = 80;
 
     zy[0] = Math.round((dy[0] += (cursor.y - dy[0]) * del));
     zx[0] = Math.round((dx[0] += (cursor.x - dx[0]) * del));
@@ -274,7 +274,7 @@ export function clockCursor(options) {
     const min = (Math.PI * (mins - 15)) / 30;
     const hrs = time.getHours();
     const hr =
-      (Math.PI * (hrs - 3)) / 6 + (Math.PI * parseInt(time.getMinutes())) / 360;
+      (Math.PI * (hrs - 3)) / 6 + (Math.PI * Number.parseInt(time.getMinutes())) / 360;
 
     // Date
     for (let i = 0; i < tmpd.length; i++) {
