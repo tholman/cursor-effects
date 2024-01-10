@@ -19,7 +19,7 @@ export function clockCursor(options) {
 
   const del = 0.4;
 
-  const theDays = [
+  const theDays = (options && options.theDays) || [
     "SUNDAY",
     "MONDAY",
     "TUESDAY",
@@ -29,7 +29,7 @@ export function clockCursor(options) {
     "SATURDAY",
   ];
 
-  const theMonths = [
+  const theMonths = (options && options.theMonths) || [
     "JANUARY",
     "FEBRUARY",
     "MARCH",
@@ -154,7 +154,7 @@ export function clockCursor(options) {
     context.textAlign = "center";
     context.textBaseline = "middle";
 
-    // indivdual positions of the movement and movement deltas
+    // individual positions of the movement and movement deltas
     for (let i = 0; i < sum; i++) {
       dy[i] = 0;
       dx[i] = 0;
