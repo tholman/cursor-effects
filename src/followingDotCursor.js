@@ -1,11 +1,11 @@
 export function followingDotCursor(options) {
-  const hasWrapperEl = options && options.element;
-  const element = hasWrapperEl || document.body;
+  let hasWrapperEl = options && options.element;
+  let element = hasWrapperEl || document.body;
 
   let width = window.innerWidth;
   let height = window.innerHeight;
-  const cursor = { x: width / 2, y: width / 2 };
-  const dot = new Dot(width / 2, height / 2, 10, 10);
+  let cursor = { x: width / 2, y: width / 2 };
+  let dot = new Dot(width / 2, height / 2, 10, 10);
   let canvas, context, animationFrame;
   const color = options?.color || "#323232a6";
 
