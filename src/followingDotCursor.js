@@ -1,26 +1,26 @@
 export function followingDotCursor(options) {
-  let hasWrapperEl = options && options.element;
-  let element = hasWrapperEl || document.body;
+  const hasWrapperEl = options && options.element;
+  const element = hasWrapperEl || document.body;
 
   let width = window.innerWidth;
   let height = window.innerHeight;
-  let cursor = { x: width / 2, y: width / 2 };
-  let dot = new Dot(width / 2, height / 2, 10, 10);
+  const cursor = { x: width / 2, y: width / 2 };
+  const dot = new Dot(width / 2, height / 2, 10, 10);
   let canvas, context, animationFrame;
-  let color = options?.color || "#323232a6";
+  const color = options?.color || "#323232a6";
 
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   );
 
   // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
-  prefersReducedMotion.onchange = () => {
+  prefersReducedMotion.addEventListener('change', () => {
     if (prefersReducedMotion.matches) {
       destroy();
     } else {
       init();
     }
-  };
+  });
 
   function init() {
     // Don't show the cursor trail if the user has prefers-reduced-motion enabled
@@ -39,12 +39,12 @@ export function followingDotCursor(options) {
 
     if (hasWrapperEl) {
       canvas.style.position = "absolute";
-      element.appendChild(canvas);
+      element.append(canvas);
       canvas.width = element.clientWidth;
       canvas.height = element.clientHeight;
     } else {
       canvas.style.position = "fixed";
-      document.body.appendChild(canvas);
+      document.body.append(canvas);
       canvas.width = width;
       canvas.height = height;
     }
