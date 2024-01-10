@@ -2,12 +2,12 @@
 // - https://codepen.io/jakedeakin/full/MWKQVxX
 
 export function trailingCursor(options) {
-  const hasWrapperEl = options && options.element;
-  const element = hasWrapperEl || document.body;
+  let hasWrapperEl = options && options.element;
+  let element = hasWrapperEl || document.body;
 
   let width = window.innerWidth;
   let height = window.innerHeight;
-  const cursor = { x: width / 2, y: width / 2 };
+  let cursor = { x: width / 2, y: width / 2 };
   const particles = [];
   let canvas, context, animationFrame;
 
