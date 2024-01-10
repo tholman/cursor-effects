@@ -2,7 +2,7 @@ export function characterCursor(options) {
   let hasWrapperEl = options && options.element;
   let element = hasWrapperEl || document.body;
 
-  let possibleCharacters = options?.characters || ["h", "e", "l", "l", "o"];
+  const possibleCharacters = options?.characters || ["h", "e", "l", "l", "o"];
   const colors = options?.colors || [
     "#6622CC",
     "#A755C2",
@@ -14,23 +14,23 @@ export function characterCursor(options) {
   let width = window.innerWidth;
   let height = window.innerHeight;
   let cursor = { x: width / 2, y: width / 2 };
-  let particles = [];
+  const particles = [];
   let canvas, context, animationFrame;
 
-  let font = options?.font || "15px serif"
+  const font = options?.font || "15px serif"
 
   let randomPositiveOrNegativeOne = function() {
     return (Math.random() < 0.5 ? -1 : 1);
   }
 
   // Generates the lifespan for individual characters
-  let characterLifeSpanFunction = options?.characterLifeSpanFunction || 
+  const characterLifeSpanFunction = options?.characterLifeSpanFunction || 
   function() {
     return Math.floor(Math.random() * 60 + 80);
   }
 
   // Defines the original velocity for the character
-  let initialCharacterVelocityFunction = options?.initialCharacterVelocityFunction || 
+  const initialCharacterVelocityFunction = options?.initialCharacterVelocityFunction || 
   function() {
     return {
       x: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 5,
@@ -39,7 +39,7 @@ export function characterCursor(options) {
   };
 
   // Defines how the velocity should change (additively)
-  let characterVelocityChangeFunctions = options?.characterVelocityChangeFunctions || {
+  const characterVelocityChangeFunctions = options?.characterVelocityChangeFunctions || {
       x_func: function(age, lifeSpan) {
         return (Math.random() < 0.5 ? -1 : 1)/30;
       },
@@ -48,33 +48,33 @@ export function characterCursor(options) {
       },
     };
 
-  let characterScalingFunction = options?.characterScalingFunction || 
+  const characterScalingFunction = options?.characterScalingFunction || 
   function(age, lifeSpan) {
-    let lifeLeft = lifeSpan - age;
+    const lifeLeft = lifeSpan - age;
     return Math.max(lifeLeft / lifeSpan * 2, 0);
   }
 
   // Produces new angles for the character
-  let characterNewRotationDegreesFunction = options?.characterNewRotationDegreesFunction || 
+  const characterNewRotationDegreesFunction = options?.characterNewRotationDegreesFunction || 
   function(age, lifeSpan) {
-    let lifeLeft = lifeSpan - age;
+    const lifeLeft = lifeSpan - age;
     return lifeLeft / 5;
   };
 
-  let canvImages = [];
+  const canvImages = [];
 
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   );
 
   // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
-  prefersReducedMotion.onchange = () => {
+  prefersReducedMotion.addEventListener('change', () => {
     if (prefersReducedMotion.matches) {
       destroy();
     } else {
       init();
     }
-  };
+  });
 
   function init() {
     // Don't show the cursor trail if the user has prefers-reduced-motion enabled
@@ -94,12 +94,12 @@ export function characterCursor(options) {
 
     if (hasWrapperEl) {
       canvas.style.position = "absolute";
-      element.appendChild(canvas);
+      element.append(canvas);
       canvas.width = element.clientWidth;
       canvas.height = element.clientHeight;
     } else {
       canvas.style.position = "fixed";
-      document.body.appendChild(canvas);
+      document.body.append(canvas);
       canvas.width = width;
       canvas.height = height;
     }
@@ -108,9 +108,9 @@ export function characterCursor(options) {
     context.textBaseline = "middle";
     context.textAlign = "center";
 
-    possibleCharacters.forEach((emoji) => {
-      let measurements = context.measureText(emoji);
-      let bgCanvas = document.createElement("canvas");
+    for (const emoji of possibleCharacters) {
+      const measurements = context.measureText(emoji);
+      const bgCanvas = document.createElement("canvas");
       let bgContext = bgCanvas.getContext("2d");
 
       bgCanvas.width = measurements.width;
@@ -119,7 +119,7 @@ export function characterCursor(options) {
       bgContext.textAlign = "center";
       bgContext.font = font
       bgContext.textBaseline = "middle";
-      var randomColor = colors[Math.floor(Math.random() * colors.length)]
+      const randomColor = colors[Math.floor(Math.random() * colors.length)]
       bgContext.fillStyle = randomColor
 
       bgContext.fillText(
@@ -129,7 +129,7 @@ export function characterCursor(options) {
       );
 
       canvImages.push(bgCanvas);
-    });
+    }
 
     bindEvents();
     loop();
@@ -190,15 +190,15 @@ export function characterCursor(options) {
   }
 
   function updateParticles() {
-    if (particles.length == 0) {
+    if (particles.length === 0) {
       return;
     }
 
     context.clearRect(0, 0, width, height);
 
     // Update
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update(context);
+    for (const particle of particles) {
+      particle.update(context);
     }
 
     // Remove dead particles
@@ -208,7 +208,7 @@ export function characterCursor(options) {
       }
     }
 
-    if (particles.length == 0) {
+    if (particles.length === 0) {
       context.clearRect(0, 0, width, height);
     }
   }
@@ -257,7 +257,7 @@ export function characterCursor(options) {
       const scale = characterScalingFunction(this.age, this.initialLifeSpan);
 
       const degrees = this.rotationSign * characterNewRotationDegreesFunction(this.age, this.initialLifeSpan)
-      const radians = degrees * 0.0174533; // not perfect but close enough
+      const radians = degrees * 0.017_453_3; // not perfect but close enough
 
       context.translate(this.position.x, this.position.y);
       context.rotate(radians);
