@@ -1,5 +1,5 @@
 export function fairyDustCursor(options) {
-  let possibleColors = (options && options.colors) || [
+  const possibleColors = (options && options.colors) || [
     "#D61C59",
     "#E7D84B",
     "#1B8798",
@@ -22,13 +22,13 @@ export function fairyDustCursor(options) {
   );
 
   // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
-  prefersReducedMotion.onchange = () => {
+  prefersReducedMotion.addEventListener('change', () => {
     if (prefersReducedMotion.matches) {
       destroy();
     } else {
       init();
     }
-  };
+  });
 
   function init() {
     // Don't show the cursor trail if the user has prefers-reduced-motion enabled
@@ -47,12 +47,12 @@ export function fairyDustCursor(options) {
 
     if (hasWrapperEl) {
       canvas.style.position = "absolute";
-      element.appendChild(canvas);
+      element.append(canvas);
       canvas.width = element.clientWidth;
       canvas.height = element.clientHeight;
     } else {
       canvas.style.position = "fixed";
-      element.appendChild(canvas);
+      element.append(canvas);
       canvas.width = width;
       canvas.height = height;
     }
@@ -61,8 +61,8 @@ export function fairyDustCursor(options) {
     context.textBaseline = "middle";
     context.textAlign = "center";
 
-    possibleColors.forEach((color) => {
-      let measurements = context.measureText(char);
+    for (const color of possibleColors) {
+      const measurements = context.measureText(char);
       let bgCanvas = document.createElement("canvas");
       let bgContext = bgCanvas.getContext("2d");
 
@@ -82,7 +82,7 @@ export function fairyDustCursor(options) {
       );
 
       canvImages.push(bgCanvas);
-    });
+    }
 
     bindEvents();
     loop();
@@ -155,15 +155,15 @@ export function fairyDustCursor(options) {
   }
 
   function updateParticles() {
-    if (particles.length == 0) {
+    if (particles.length === 0) {
       return;
     }
 
     context.clearRect(0, 0, width, height);
 
     // Update
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update(context);
+    for (const particle of particles) {
+      particle.update(context);
     }
 
     // Remove dead particles
@@ -173,7 +173,7 @@ export function fairyDustCursor(options) {
       }
     }
 
-    if (particles.length == 0) {
+    if (particles.length === 0) {
       context.clearRect(0, 0, width, height);
     }
   }

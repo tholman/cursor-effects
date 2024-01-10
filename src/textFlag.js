@@ -3,24 +3,24 @@
 // via fun24.com (defunct, 199X)
 
 export function textFlag(options) {
-  let cursorOptions = options || {};
-  let hasWrapperEl = options && options.element;
-  let element = hasWrapperEl || document.body;
+  const cursorOptions = options || {};
+  const hasWrapperEl = options && options.element;
+  const element = hasWrapperEl || document.body;
 
-  let text = cursorOptions.text ? " " + options.text : " Your Text Here";
-  let color = options?.color || "#000000";
+  const text = cursorOptions.text ? " " + options.text : " Your Text Here";
+  const color = options?.color || "#000000";
 
 
-  let font = cursorOptions.font || "monospace";
-  let textSize = cursorOptions.textSize || 12;
+  const font = cursorOptions.font || "monospace";
+  const textSize = cursorOptions.textSize || 12;
 
-  let fontFamily = textSize + "px " + font;
+  const fontFamily = textSize + "px " + font;
 
-  let gap = cursorOptions.gap || textSize + 2;
+  const gap = cursorOptions.gap || textSize + 2;
   let angle = 0;
-  let radiusX = 2;
-  let radiusY = 5;
-  let charArray = [];
+  const radiusX = 2;
+  const radiusY = 5;
+  const charArray = [];
 
   let width = window.innerWidth;
   let height = window.innerHeight;
@@ -41,13 +41,13 @@ export function textFlag(options) {
   );
 
   // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
-  prefersReducedMotion.onchange = () => {
+  prefersReducedMotion.addEventListener('change', () => {
     if (prefersReducedMotion.matches) {
       destroy();
     } else {
       init();
     }
-  };
+  });
 
   function init() {
     // Don't show the cursor trail if the user has prefers-reduced-motion enabled
@@ -66,12 +66,12 @@ export function textFlag(options) {
 
     if (hasWrapperEl) {
       canvas.style.position = "absolute";
-      element.appendChild(canvas);
+      element.append(canvas);
       canvas.width = element.clientWidth;
       canvas.height = element.clientHeight;
     } else {
       canvas.style.position = "fixed";
-      document.body.appendChild(canvas);
+      document.body.append(canvas);
       canvas.width = width;
       canvas.height = height;
     }
@@ -114,8 +114,8 @@ export function textFlag(options) {
     context.clearRect(0, 0, width, height);
 
     angle += 0.15;
-    let locX = radiusX * Math.cos(angle);
-    let locY = radiusY * Math.sin(angle);
+    const locX = radiusX * Math.cos(angle);
+    const locY = radiusY * Math.sin(angle);
 
     for (let i = charArray.length - 1; i > 0; i--) {
       charArray[i].x = charArray[i - 1].x + gap;

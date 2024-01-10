@@ -17,13 +17,13 @@ export function emojiCursor(options) {
   );
 
   // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
-  prefersReducedMotion.onchange = () => {
+  prefersReducedMotion.addEventListener('change', () => {
     if (prefersReducedMotion.matches) {
       destroy();
     } else {
       init();
     }
-  };
+  });
 
   function init() {
     // Don't show the cursor trail if the user has prefers-reduced-motion enabled
@@ -43,12 +43,12 @@ export function emojiCursor(options) {
 
     if (hasWrapperEl) {
       canvas.style.position = "absolute";
-      element.appendChild(canvas);
+      element.append(canvas);
       canvas.width = element.clientWidth;
       canvas.height = element.clientHeight;
     } else {
       canvas.style.position = "fixed";
-      document.body.appendChild(canvas);
+      document.body.append(canvas);
       canvas.width = width;
       canvas.height = height;
     }
@@ -57,8 +57,8 @@ export function emojiCursor(options) {
     context.textBaseline = "middle";
     context.textAlign = "center";
 
-    possibleEmoji.forEach((emoji) => {
-      let measurements = context.measureText(emoji);
+    for (const emoji of possibleEmoji) {
+      const measurements = context.measureText(emoji);
       let bgCanvas = document.createElement("canvas");
       let bgContext = bgCanvas.getContext("2d");
 
@@ -75,7 +75,7 @@ export function emojiCursor(options) {
       );
 
       canvImages.push(bgCanvas);
-    });
+    }
 
     bindEvents();
     loop();
@@ -154,15 +154,15 @@ export function emojiCursor(options) {
   }
 
   function updateParticles() {
-    if (particles.length == 0) {
+    if (particles.length === 0) {
       return;
     }
 
     context.clearRect(0, 0, width, height);
 
     // Update
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update(context);
+    for (const particle of particles) {
+      particle.update(context);
     }
 
     // Remove dead particles
@@ -172,7 +172,7 @@ export function emojiCursor(options) {
       }
     }
 
-    if (particles.length == 0) {
+    if (particles.length === 0) {
       context.clearRect(0, 0, width, height);
     }
   }

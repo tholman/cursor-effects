@@ -2,27 +2,27 @@ export function snowflakeCursor(options) {
   let hasWrapperEl = options && options.element;
   let element = hasWrapperEl || document.body;
 
-  let possibleEmoji = ["❄️"];
+  const possibleEmoji = ["❄️"];
   let width = window.innerWidth;
   let height = window.innerHeight;
   let cursor = { x: width / 2, y: width / 2 };
-  let particles = [];
+  const particles = [];
   let canvas, context, animationFrame;
 
-  let canvImages = [];
+  const canvImages = [];
 
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   );
 
   // Re-initialise or destroy the cursor when the prefers-reduced-motion setting changes
-  prefersReducedMotion.onchange = () => {
+  prefersReducedMotion.addEventListener('change', () => {
     if (prefersReducedMotion.matches) {
       destroy();
     } else {
       init();
     }
-  };
+  });
 
   function init() {
     // Don't show the cursor trail if the user has prefers-reduced-motion enabled
@@ -42,12 +42,12 @@ export function snowflakeCursor(options) {
 
     if (hasWrapperEl) {
       canvas.style.position = "absolute";
-      element.appendChild(canvas);
+      element.append(canvas);
       canvas.width = element.clientWidth;
       canvas.height = element.clientHeight;
     } else {
       canvas.style.position = "fixed";
-      document.body.appendChild(canvas);
+      document.body.append(canvas);
       canvas.width = width;
       canvas.height = height;
     }
@@ -56,8 +56,8 @@ export function snowflakeCursor(options) {
     context.textBaseline = "middle";
     context.textAlign = "center";
 
-    possibleEmoji.forEach((emoji) => {
-      let measurements = context.measureText(emoji);
+    for (const emoji of possibleEmoji) {
+      const measurements = context.measureText(emoji);
       let bgCanvas = document.createElement("canvas");
       let bgContext = bgCanvas.getContext("2d");
 
@@ -74,7 +74,7 @@ export function snowflakeCursor(options) {
       );
 
       canvImages.push(bgCanvas);
-    });
+    }
 
     bindEvents();
     loop();
@@ -135,15 +135,15 @@ export function snowflakeCursor(options) {
   }
 
   function updateParticles() {
-    if (particles.length == 0) {
+    if (particles.length === 0) {
       return;
     }
 
     context.clearRect(0, 0, width, height);
 
     // Update
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update(context);
+    for (const particle of particles) {
+      particle.update(context);
     }
 
     // Remove dead particles
@@ -153,7 +153,7 @@ export function snowflakeCursor(options) {
       }
     }
 
-    if (particles.length == 0) {
+    if (particles.length === 0) {
       context.clearRect(0, 0, width, height);
     }
   }
@@ -198,7 +198,7 @@ export function snowflakeCursor(options) {
       const scale = Math.max(this.lifeSpan / this.initialLifeSpan, 0);
 
       const degrees = 2 * this.lifeSpan;
-      const radians = degrees * 0.0174533; // not perfect but close enough
+      const radians = degrees * 0.017_453_3; // not perfect but close enough
 
       context.translate(this.position.x, this.position.y);
       context.rotate(radians);
