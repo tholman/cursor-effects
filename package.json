@@ -5,15 +5,18 @@
   "version": "1.0.13",
   "main": "./dist/cjs.cjs",
   "module": "./dist/esm.js",
+  "types": "./types.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
+      "types": "./types.d.ts",
       "require": "./dist/cjs.cjs",
       "import": "./dist/esm.js"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "types.d.ts"
   ],
   "publishConfig": {
     "access": "public",
