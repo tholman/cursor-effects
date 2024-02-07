@@ -26,6 +26,8 @@ export type ClockCursorOptions = {
     readonly secondsColor?: string;
     readonly minutesColor?: string;
     readonly hoursColor?: string;
+    readonly theDays?: string[];
+    readonly theMonths?: string[];
 } & DefaultOptions;
 
 export type EmojiCursorOptions = {
