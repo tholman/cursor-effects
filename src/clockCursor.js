@@ -19,7 +19,7 @@ export function clockCursor(options) {
 
   const del = 0.4;
 
-  const theDays = [
+  const theDays = (options && options.theDays) || [
     "SUNDAY",
     "MONDAY",
     "TUESDAY",
@@ -29,7 +29,7 @@ export function clockCursor(options) {
     "SATURDAY",
   ];
 
-  const theMonths = [
+  const theMonths = (options && options.theMonths) || [
     "JANUARY",
     "FEBRUARY",
     "MARCH",
