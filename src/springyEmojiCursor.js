@@ -100,6 +100,7 @@ export function springyEmojiCursor(options) {
 
   // Bind events that are needed
   function bindEvents() {
+    window.addEventListener("popstate", destroy);
     element.addEventListener("mousemove", onMouseMove);
     element.addEventListener("touchmove", onTouchMove, { passive: true });
     element.addEventListener("touchstart", onTouchMove, { passive: true });
