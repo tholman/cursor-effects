@@ -82,6 +82,7 @@ export function textFlag(options) {
 
   // Bind events that are needed
   function bindEvents() {
+    window.addEventListener("popstate", destroy);
     element.addEventListener("mousemove", onMouseMove);
     window.addEventListener("resize", onWindowResize);
   }
