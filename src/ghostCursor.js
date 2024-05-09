@@ -5,6 +5,7 @@ export function ghostCursor(options) {
   let randomDelay = options && options.randomDelay;
   let minDelay = options && options.minDelay || 5;
   let maxDelay = options && options.maxDelay || 50;
+  const lifeSpan = options && options.lifeSpan || 40;
 
   let width = window.innerWidth;
   let height = window.innerHeight;
@@ -163,7 +164,6 @@ export function ghostCursor(options) {
    */
 
   function Particle(x, y, image) {
-    const lifeSpan = 40;
     this.initialLifeSpan = lifeSpan; //ms
     this.lifeSpan = lifeSpan; //ms
     this.position = { x: x, y: y };
