@@ -1,11 +1,20 @@
+/**
+ * @param {
+ *  element,
+ *  dotWidth: Number,
+ *. mixDotBgColor: Booolen
+ * } as options
+ */
 export function followingDotCursor(options) {
   let hasWrapperEl = options && options.element;
   let element = hasWrapperEl || document.body;
+  let dotWidth = options?.dotWidth || 10
+  const mixDotBgColor = options?.mixDotBgColor
 
   let width = window.innerWidth;
   let height = window.innerHeight;
   let cursor = { x: width / 2, y: width / 2 };
-  let dot = new Dot(width / 2, height / 2, 10, 10);
+  let dot = new Dot(width / 2, height / 2, dotWidth, dotWidth);
   let canvas, context, animationFrame;
   let color = options?.color || "#323232a6";
 
@@ -36,6 +45,10 @@ export function followingDotCursor(options) {
     canvas.style.top = "0px";
     canvas.style.left = "0px";
     canvas.style.pointerEvents = "none";
+
+    if (mixDotBgColor) {
+      canvas.style.mixBlendMode = "difference";
+    }
 
     if (hasWrapperEl) {
       canvas.style.position = "absolute";
