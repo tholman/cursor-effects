@@ -2,14 +2,14 @@
  * @param {
  *  element,
  *  dotWidth: Number,
- *. mixDotBgColor: Booolen
+ *  mixBlendMode: String
  * } as options
  */
 export function followingDotCursor(options) {
   let hasWrapperEl = options && options.element;
   let element = hasWrapperEl || document.body;
   let dotWidth = options?.dotWidth || 10
-  const mixDotBgColor = options?.mixDotBgColor
+  const mixBlendMode = options?.mixBlendMode
 
   let width = window.innerWidth;
   let height = window.innerHeight;
@@ -46,8 +46,8 @@ export function followingDotCursor(options) {
     canvas.style.left = "0px";
     canvas.style.pointerEvents = "none";
 
-    if (mixDotBgColor) {
-      canvas.style.mixBlendMode = "difference";
+    if (mixBlendMode) {
+      canvas.style.mixBlendMode = mixBlendMode;
     }
 
     if (hasWrapperEl) {

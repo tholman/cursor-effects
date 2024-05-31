@@ -6,7 +6,7 @@ new cursoreffects.followingDotCursor({ element: document.querySelector("#followi
 new cursoreffects.followingDotCursor({
   element: document.querySelector("#following-mix"),
   dotWidth: 15,
-  mixDotBgColor: true,
+  mixBlendMode: 'difference',
   color: "#22cc99"
 })
 new cursoreffects.springyEmojiCursor({ element: document.querySelector("#springs") })
