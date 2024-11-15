@@ -74,7 +74,7 @@ export type TextFlagOptions = {
 export type TrailingCursorOptions = {
     readonly particles?: number;
     readonly rate?: number;
-    readonly baseImageSrc?: number;
+    readonly baseImageSrc?: number | string;
 } & DefaultOptions;
 
 export function bubbleCursor(options?: BubbleCursorOptions): CursorEffectResult;
