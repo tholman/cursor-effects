@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/tholman/cursor-effects#readme",
   "devDependencies": {
-    "rollup": "^2.77.0",
+    "rollup": "^3.29.5",
     "rollup-plugin-terser": "^7.0.2"
   },
   "scripts": {
