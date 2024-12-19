@@ -26,9 +26,11 @@ export function textFlag(options) {
   let height = window.innerHeight;
   let cursor = { x: width / 2, y: width / 2 };
 
-  for (let i = 0; i < text.length; i++) {
-    charArray[i] = { letter: text.charAt(i), x: width / 2, y: width / 2 };
-  }
+  charArray = Array.from(text).map(char => ({ 
+    letter: char, 
+    x: width / 2, 
+    y: width / 2 
+  }));
 
   let canvas, context, animationFrame;
 
