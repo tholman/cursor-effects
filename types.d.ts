@@ -32,6 +32,7 @@ export type ClockCursorOptions = {
 
 export type EmojiCursorOptions = {
     readonly emoji?: readonly string[];
+    readonly delay?: number;
 } & DefaultOptions;
 
 export type FairyDustCursorOptions = {
