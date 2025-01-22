@@ -15,6 +15,8 @@ export function fairyDustCursor(options) {
   const canvImages = [];
   let canvas, context, animationFrame;
 
+  let active = true;
+
   const char = "*";
 
   const prefersReducedMotion = window.matchMedia(
@@ -151,6 +153,8 @@ export function fairyDustCursor(options) {
   }
 
   function addParticle(x, y, color) {
+    if (!active) return;
+
     particles.push(new Particle(x, y, color));
   }
 
@@ -181,6 +185,13 @@ export function fairyDustCursor(options) {
   function loop() {
     updateParticles();
     animationFrame = requestAnimationFrame(loop);
+  }
+
+  function pause() {
+    active = false;
+  }
+  function resume() {
+    active = true;
   }
 
   function destroy() {
@@ -225,6 +236,8 @@ export function fairyDustCursor(options) {
   init();
 
   return {
-    destroy: destroy
+    destroy: destroy,
+    resume: resume,
+    pause: pause
   }
 }
