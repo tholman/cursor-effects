@@ -237,6 +237,8 @@ export function emojiCursor(options) {
   init();
 
   return {
-    destroy: destroy
+    destroy: destroy,
+    resume: resume,
+    pause: pause
   }
 }
