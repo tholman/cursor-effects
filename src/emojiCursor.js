@@ -12,6 +12,8 @@ export function emojiCursor(options) {
   const canvImages = [];
   let canvas, context, animationFrame;
 
+  let active = true;
+  
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   );
@@ -150,6 +152,7 @@ export function emojiCursor(options) {
   }
 
   function addParticle(x, y, img) {
+    if(!active) return;
     particles.push(new Particle(x, y, img));
   }
 
@@ -191,6 +194,12 @@ export function emojiCursor(options) {
     window.addEventListener("resize", onWindowResize);
   };
 
+  function pause() {
+    active = false;
+  }
+  function resume() {
+    active = true;
+  }
   /**
    * Particles
    */
