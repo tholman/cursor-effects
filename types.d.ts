@@ -1,5 +1,7 @@
 export type CursorEffectResult = {
     destroy(): void;
+    pause(): void;
+    resume(): void;
 }
 
 type DefaultOptions = {
