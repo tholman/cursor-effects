@@ -13,6 +13,8 @@ export function ghostCursor(options) {
   let particles = [];
   let canvas, context, animationFrame;
 
+  let active = true;
+
   let baseImage = new Image();
   if (options && options.image) {
     baseImage.src = options.image;
@@ -96,7 +98,7 @@ export function ghostCursor(options) {
 
   let getDelay = () => Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
   let lastTimeParticleAdded = Date.now(),
-      interval = getDelay();
+    interval = getDelay();
 
   function onMouseMove(e) {
     if (randomDelay) {
@@ -118,6 +120,8 @@ export function ghostCursor(options) {
   }
 
   function addParticle(x, y, image) {
+    if (!active) return;
+
     particles.push(new Particle(x, y, image));
   }
 
@@ -125,7 +129,7 @@ export function ghostCursor(options) {
     if (particles.length == 0) {
       return;
     }
-    
+
     context.clearRect(0, 0, width, height);
 
     // Update
@@ -148,6 +152,13 @@ export function ghostCursor(options) {
   function loop() {
     updateParticles();
     animationFrame = requestAnimationFrame(loop);
+  }
+
+  function pause() {
+    active = false;
+  }
+  function resume() {
+    active = true;
   }
 
   function destroy() {
@@ -186,6 +197,8 @@ export function ghostCursor(options) {
   init();
 
   return {
-    destroy: destroy
+    destroy: destroy,
+    resume: resume,
+    pause: pause
   }
 }

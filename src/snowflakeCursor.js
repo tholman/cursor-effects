@@ -9,6 +9,8 @@ export function snowflakeCursor(options) {
   let particles = [];
   let canvas, context, animationFrame;
 
+  let active = true;
+
   let canvImages = [];
 
   const prefersReducedMotion = window.matchMedia(
@@ -131,6 +133,8 @@ export function snowflakeCursor(options) {
   }
 
   function addParticle(x, y, img) {
+    if (!active) return;
+
     particles.push(new Particle(x, y, img));
   }
 
@@ -161,6 +165,13 @@ export function snowflakeCursor(options) {
   function loop() {
     updateParticles();
     animationFrame = requestAnimationFrame(loop);
+  }
+
+  function pause() {
+    active = false;
+  }
+  function resume() {
+    active = true;
   }
 
   function destroy() {
@@ -219,6 +230,8 @@ export function snowflakeCursor(options) {
   init();
 
   return {
-    destroy: destroy
+    destroy: destroy,
+    resume: resume,
+    pause: pause
   }
 }

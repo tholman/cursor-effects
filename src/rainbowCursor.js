@@ -8,6 +8,8 @@ export function rainbowCursor(options) {
   let particles = [];
   let canvas, context, animationFrame;
 
+  let active = true;
+
   const totalParticles = options?.length || 20;
   const colors = options?.colors || [
     "#FE0000",
@@ -103,6 +105,8 @@ export function rainbowCursor(options) {
   }
 
   function addParticle(x, y, image) {
+    if (!active) return;
+
     particles.push(new Particle(x, y, image));
   }
 
@@ -155,6 +159,13 @@ export function rainbowCursor(options) {
     animationFrame = requestAnimationFrame(loop);
   }
 
+  function pause() {
+    active = false;
+  }
+  function resume() {
+    active = true;
+  }
+
   function destroy() {
     canvas.remove();
     cancelAnimationFrame(animationFrame);
@@ -169,6 +180,8 @@ export function rainbowCursor(options) {
   init();
 
   return {
-    destroy: destroy
+    destroy: destroy,
+    resume: resume,
+    pause: pause
   }
 }
