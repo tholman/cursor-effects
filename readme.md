@@ -114,10 +114,11 @@ new cursoreffects.fairyDustCursor({
 
 ### emojiCursor
 
-You can change the emoji in `emojiCursor`'s emoji with the `emoji` option (a list of emoji)
+You can change the emoji in `emojiCursor`'s emoji with the `emoji` option (a list of emoji),
+and delay between emoji with the `delay` option (defaults to `16`)
 
 ```js
-new cursoreffects.emojiCursor({ emoji: ["🔥", "🐬", "🦆"] });
+new cursoreffects.emojiCursor({ emoji: ["🔥", "🐬", "🦆"], delay: 25 });
 ```
 
 ### textFlag
