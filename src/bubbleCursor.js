@@ -10,6 +10,8 @@ export function bubbleCursor(options) {
   let particles = [];
   let canvas, context, animationFrame;
 
+  let active = true;
+
   let canvImages = [];
 
   const prefersReducedMotion = window.matchMedia(
@@ -104,6 +106,8 @@ export function bubbleCursor(options) {
   }
 
   function addParticle(x, y, img) {
+    if (!active) return;
+
     particles.push(new Particle(x, y, img));
   }
 
@@ -144,6 +148,13 @@ export function bubbleCursor(options) {
     element.removeEventListener("touchstart", onTouchMove);
     window.addEventListener("resize", onWindowResize);
   };
+
+  function pause() {
+    active = false;
+  }
+  function resume() {
+    active = true;
+  }
 
   function Particle(x, y, canvasItem) {
     const lifeSpan = Math.floor(Math.random() * 60 + 60);
@@ -190,6 +201,8 @@ export function bubbleCursor(options) {
 
 
   return {
-    destroy: destroy
+    destroy: destroy,
+    resume: resume,
+    pause: pause
   }
 }
