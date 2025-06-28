@@ -58,14 +58,14 @@ new cursoreffects.ghostCursor({ element: targetElement });
 ```
 
 To remove the effect, you can call `destroy` on it.
+
 ```js
 // Create
 let cursorEffect = new ghostCursor();
 
 // Destroy
-cursorEffect.destroy()
+cursorEffect.destroy();
 ```
-
 
 ### or you can use NPM
 
@@ -102,6 +102,17 @@ You can change the emoji in `springyEmojiCursor`'s emoji with the `emoji` a sing
 new cursoreffects.springyEmojiCursor({ emoji: "🤷‍♂️" });
 ```
 
+### bubbleCursor
+
+You can change the fill and stroke/border of the bubbles in `bubbleCursor` with the `fillColor` & `strokeColor` options
+
+```js
+new cursoreffects.bubbleCursor({
+  fillColor: "#f771b4",
+  strokeColor: "#e6f1f7",
+});
+```
+
 ### fairyDustCursor
 
 You can change the emoji in `fairyDustCursor`'s colors with the `colors` option (an array of colors)
@@ -123,11 +134,11 @@ new cursoreffects.emojiCursor({ emoji: ["🔥", "🐬", "🦆"], delay: 25 });
 
 ### textFlag
 
-You can change the  `textFlag`'s text with the `text` option (String),
+You can change the `textFlag`'s text with the `text` option (String),
 and color of the text with the `color` option (hex)
 
 ```js
- new textFlag({text: "test",color:["#FF6800"]});
+new textFlag({ text: "test", color: ["#FF6800"] });
 ```
 
 ## Accessibility
@@ -139,7 +150,11 @@ The cursor won't display if the user's system accessibility settings have [prefe
 You can change the number of trail steps in `trailingCursor` with the `particles` option (a number), the rate of the trail with the `rate` option (a number between 0 and 1, default is `0.4`), and the trailing cursor image with the `baseImageSrc` option (a URL or base64 string)
 
 ```js
-new cursoreffects.trailingCursor({particles: 15, rate: 0.8, baseImageSrc: "data:image/png;base64,iVB..."});
+new cursoreffects.trailingCursor({
+  particles: 15,
+  rate: 0.8,
+  baseImageSrc: "data:image/png;base64,iVB...",
+});
 ```
 
 You can change the color of the following dot in `followingDotCursor` with the `color` option (hex)
@@ -151,45 +166,40 @@ new cursoreffects.followingDotCursor({ color: ["#323232a6"] });
 ### characterCursor
 
 Consider this cursor as an extension of the snowflake cursor, but instead of the snowflake emoji you can specify a list of characters and colors to use as well as defining how the character's velocity, rotation and scaling should change over the characters lifespan. For example to produce the same effect you see in the demo page, you would use this. (It will also do this by default, but this is a great way to experiement and play around with the effect)
+
 ```js
-new cursoreffects.characterCursor({ 
-    element: document.querySelector("#character"), 
-    characters: ["h", "e", "l", "l", "o"],
-    font: "15px serif",
-    colors: [
-        "#6622CC",
-        "#A755C2",
-        "#B07C9E",
-        "#B59194",
-        "#D2A1B8",
-    ],
-    characterLifeSpanFunction: function() {
-        return Math.floor(Math.random() * 60 + 80);
+new cursoreffects.characterCursor({
+  element: document.querySelector("#character"),
+  characters: ["h", "e", "l", "l", "o"],
+  font: "15px serif",
+  colors: ["#6622CC", "#A755C2", "#B07C9E", "#B59194", "#D2A1B8"],
+  characterLifeSpanFunction: function () {
+    return Math.floor(Math.random() * 60 + 80);
+  },
+  initialCharacterVelocityFunction: function () {
+    return {
+      x: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 5,
+      y: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 5,
+    };
+  },
+  characterVelocityChangeFunctions: {
+    x_func: function (age, lifeSpan) {
+      return (Math.random() < 0.5 ? -1 : 1) / 30;
     },
-    initialCharacterVelocityFunction: function() {
-        return {
-            x: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 5,
-            y: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 5,
-        }
+    y_func: function (age, lifeSpan) {
+      return (Math.random() < 0.5 ? -1 : 1) / 15;
     },
-    characterVelocityChangeFunctions: {
-      x_func: function(age, lifeSpan) {
-        return (Math.random() < 0.5 ? -1 : 1)/30;
-      },
-      y_func: function(age, lifeSpan) {
-        return (Math.random() < 0.5 ? -1 : 1)/ 15;
-      },
-    },
-    characterScalingFunction: function(age, lifeSpan) {
-        let lifeLeft = lifeSpan - age;
-        return Math.max(lifeLeft / lifeSpan * 2, 0);
-    },
-    characterNewRotationDegreesFunction: function(age, lifeSpan) {
-        let lifeLeft = lifeSpan - age;
-        console.log(age, lifeSpan);
-        return lifeLeft / 5;
-    }
-})
+  },
+  characterScalingFunction: function (age, lifeSpan) {
+    let lifeLeft = lifeSpan - age;
+    return Math.max((lifeLeft / lifeSpan) * 2, 0);
+  },
+  characterNewRotationDegreesFunction: function (age, lifeSpan) {
+    let lifeLeft = lifeSpan - age;
+    console.log(age, lifeSpan);
+    return lifeLeft / 5;
+  },
+});
 ```
 
 Note that none of these behavior changing options are required but in that case it will use similar physics to the snowflake and use the asterisk character instead.
