@@ -1,7 +1,9 @@
 export function bubbleCursor(options) {
   let hasWrapperEl = options && options.element;
   let element = hasWrapperEl || document.body;
-
+  let fillColor = options && options.fillColor ? options.fillColor : "#e6f1f7";
+  let strokeColor = options && options.strokeColor ? options.strokeColor : "#3a92c5";
+  
   let width = window.innerWidth;
   let height = window.innerHeight;
   let cursor = { x: width / 2, y: width / 2 };
@@ -166,8 +168,8 @@ export function bubbleCursor(options) {
       const scale =
         0.2 + (this.initialLifeSpan - this.lifeSpan) / this.initialLifeSpan;
 
-      context.fillStyle = "#e6f1f7";
-      context.strokeStyle = "#3a92c5";
+      context.fillStyle = fillColor;
+      context.strokeStyle = strokeColor;
       context.beginPath();
       context.arc(
         this.position.x - (this.baseDimension / 2) * scale,
