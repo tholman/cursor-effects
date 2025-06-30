@@ -15,7 +15,7 @@ export function fairyDustCursor(options) {
   const canvImages = [];
   let canvas, context, animationFrame;
 
-  const char = "*";
+  const char = options.fairySymbol || "*";
 
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
