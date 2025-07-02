@@ -115,11 +115,12 @@ new cursoreffects.bubbleCursor({
 
 ### fairyDustCursor
 
-You can change the emoji in `fairyDustCursor`'s colors with the `colors` option (an array of colors)
+You can customize the `fairyDustCursor` by using the `fairySymbol` option to change the emoji, and the `colors` option (an array) to define its trail colors.
 
 ```js
 new cursoreffects.fairyDustCursor({
   colors: ["#ff0000", "#00ff00", "#0000ff"],
+  fairySymbol: "★",
 });
 ```
 
