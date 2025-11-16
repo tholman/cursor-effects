@@ -82,6 +82,17 @@ new emojiCursor({ emoji: ["🔥", "🐬", "🦆"] });
 
 A few of these have custom options as well (if you are interested in more options, opening an issue or PR is the way to go).
 
+### ghostCursor
+
+You can change the cursor image in `ghostCursor`
+
+```js
+  new cursoreffects.ghostCursor(
+  {image:"https://www.cursor.cc/cursor/820/63/cursor.png"}
+  );
+});
+```
+
 ### rainbowCursor
 
 You can change the colors, size and length in `rainbowCursor`
@@ -208,3 +219,4 @@ Note that none of these behavior changing options are required but in that case 
 # License
 
 MIT af, but if you're using the scripts a [GitHub sponsorship](https://github.com/sponsors/tholman) or [shouting me a coffee](https://www.buymeacoffee.com/tholman) would always be appreciated :)
+
