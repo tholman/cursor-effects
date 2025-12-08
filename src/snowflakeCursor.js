@@ -39,7 +39,7 @@ export function snowflakeCursor(options) {
     canvas.style.top = "0px";
     canvas.style.left = "0px";
     canvas.style.pointerEvents = "none";
-    canvas.style.zIndex = options.zIndex || "9999999999";
+    canvas.style.zIndex = options?.zIndex || "9999999999";
 
     if (hasWrapperEl) {
       canvas.style.position = "absolute";
