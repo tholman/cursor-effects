@@ -10,3 +10,4 @@ export * from './ghostCursor.js';
 export * from './rainbowCursor.js';
 export * from './clockCursor.js';
 export * from './textFlag.js';
+export * from './antsCursor.js';
