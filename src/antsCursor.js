@@ -9,10 +9,10 @@ export function antsCursor(options) {
   let canvas, context, animationFrame;
 
   const numberOfAnts = options?.numberOfAnts || 20;
-  const followRange = options?.followRange || 120;
+  const followRange = options?.followRange || 60;
   const antColor = options?.color || "#4a2c0a";
-  const antSpeed = options?.speed || 1.5;
-  const lineFormationSpeed = options?.lineFormationSpeed || 0.08;
+  const antSpeed = options?.speed || 1.2;
+  const lineFormationSpeed = options?.lineFormationSpeed || 0.12;
 
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
@@ -111,61 +111,66 @@ export function antsCursor(options) {
   function updateAnts() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Sort ants by distance to cursor to determine following order
-    const sortedByDistance = [...ants].sort((a, b) => {
-      const distA = Math.hypot(a.position.x - cursor.x, a.position.y - cursor.y);
-      const distB = Math.hypot(b.position.x - cursor.x, b.position.y - cursor.y);
-      return distA - distB;
+    // Reset following state
+    ants.forEach((ant) => {
+      ant.following = false;
+      ant.followTarget = null;
     });
 
-    // Track which ants are following and their order
+    // Build the chain: find ants close to cursor first
     const followingAnts = [];
 
-    sortedByDistance.forEach((ant) => {
+    // First pass: find ants within range of cursor
+    ants.forEach((ant) => {
       const distToCursor = Math.hypot(
         ant.position.x - cursor.x,
         ant.position.y - cursor.y
       );
-
-      // Check if this ant should follow (either cursor is close, or a following ant is close)
-      let shouldFollow = distToCursor < followRange;
-      let followTarget = null;
-
-      if (shouldFollow) {
-        // Follow cursor directly if close enough, or follow the last ant in line
-        if (followingAnts.length === 0) {
-          followTarget = cursor;
-        } else {
-          // Follow the last ant that joined the line
-          followTarget = followingAnts[followingAnts.length - 1].position;
-        }
-        followingAnts.push(ant);
+      if (distToCursor < followRange) {
         ant.following = true;
-      } else {
-        // Check if any following ant is close enough to attract this one
-        for (let i = followingAnts.length - 1; i >= 0; i--) {
-          const followingAnt = followingAnts[i];
-          const distToFollowing = Math.hypot(
+        ant.target = cursor;
+        followingAnts.push(ant);
+      }
+    });
+
+    // Keep adding ants that are close to any following ant
+    let addedNew = true;
+    while (addedNew) {
+      addedNew = false;
+      ants.forEach((ant) => {
+        if (ant.following) return;
+
+        // Find the closest following ant
+        let closestDist = Infinity;
+        let closestAnt = null;
+
+        followingAnts.forEach((followingAnt) => {
+          const dist = Math.hypot(
             ant.position.x - followingAnt.position.x,
             ant.position.y - followingAnt.position.y
           );
-          if (distToFollowing < followRange * 0.8) {
-            shouldFollow = true;
-            followTarget = followingAnt.position;
-            followingAnts.push(ant);
-            ant.following = true;
-            break;
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestAnt = followingAnt;
           }
-        }
-      }
+        });
 
-      if (shouldFollow && followTarget) {
-        ant.followTarget(followTarget);
+        if (closestDist < followRange && closestAnt) {
+          ant.following = true;
+          ant.target = closestAnt.position;
+          followingAnts.push(ant);
+          addedNew = true;
+        }
+      });
+    }
+
+    // Update and draw all ants
+    ants.forEach((ant) => {
+      if (ant.following && ant.target) {
+        ant.moveToward(ant.target);
       } else {
-        ant.following = false;
         ant.wander();
       }
-
       ant.update();
       ant.draw(context);
     });
@@ -192,8 +197,9 @@ export function antsCursor(options) {
     this.wanderAngle = this.angle;
     this.index = index;
     this.following = false;
+    this.target = null;
     this.legPhase = Math.random() * Math.PI * 2;
-    this.size = 3 + Math.random() * 2;
+    this.size = 1.5 + Math.random() * 1;
 
     this.wander = function () {
       // Random wandering behavior
@@ -212,26 +218,26 @@ export function antsCursor(options) {
       if (this.position.y > canvas.height - 20) this.wanderAngle = -Math.PI / 2;
     };
 
-    this.followTarget = function (target) {
+    this.moveToward = function (target) {
       const dx = target.x - this.position.x;
       const dy = target.y - this.position.y;
       const dist = Math.hypot(dx, dy);
 
-      if (dist > 15) {
+      if (dist > 8) {
         const targetAngle = Math.atan2(dy, dx);
 
-        // Smoothly interpolate angle for natural turning
+        // Smoothly interpolate angle - faster turning
         let angleDiff = targetAngle - this.angle;
         while (angleDiff > Math.PI) angleDiff -= Math.PI * 2;
         while (angleDiff < -Math.PI) angleDiff += Math.PI * 2;
-        this.angle += angleDiff * lineFormationSpeed * 2;
+        this.angle += angleDiff * 0.3;
 
-        const speed = Math.min(antSpeed * 1.5, dist * 0.1);
+        const speed = Math.min(antSpeed * 1.8, dist * 0.15);
         const targetVx = Math.cos(this.angle) * speed;
         const targetVy = Math.sin(this.angle) * speed;
 
-        this.velocity.x += (targetVx - this.velocity.x) * lineFormationSpeed;
-        this.velocity.y += (targetVy - this.velocity.y) * lineFormationSpeed;
+        this.velocity.x += (targetVx - this.velocity.x) * 0.2;
+        this.velocity.y += (targetVy - this.velocity.y) * 0.2;
       } else {
         // Slow down when close to target
         this.velocity.x *= 0.8;
@@ -262,29 +268,33 @@ export function antsCursor(options) {
       ctx.rotate(this.angle);
 
       const s = this.size;
-      const legWiggle = Math.sin(this.legPhase) * 0.3;
+      const phase = this.legPhase;
 
-      // Draw legs
+      // Draw legs - alternating tripod gait
+      // Group A: front-left, middle-right, back-left
+      // Group B: front-right, middle-left, back-right
       ctx.strokeStyle = antColor;
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 0.5;
 
-      // 6 legs (3 pairs)
-      for (let i = -1; i <= 1; i++) {
-        const legOffset = i * s * 0.5;
-        const wiggle = i === 0 ? 0 : legWiggle * (i === -1 ? 1 : -1);
+      const legPositions = [
+        { x: s * 0.4, side: -1, group: 0 },   // front-left
+        { x: s * 0.4, side: 1, group: 1 },    // front-right
+        { x: 0, side: -1, group: 1 },          // middle-left
+        { x: 0, side: 1, group: 0 },           // middle-right
+        { x: -s * 0.5, side: -1, group: 0 },  // back-left
+        { x: -s * 0.5, side: 1, group: 1 },   // back-right
+      ];
 
-        // Left legs
+      legPositions.forEach((leg) => {
+        const wiggle = Math.sin(phase + leg.group * Math.PI) * 0.4;
+        const extendY = s * 0.9 * leg.side;
+        const extendX = leg.x - s * 0.3 + wiggle * s * 0.3;
+
         ctx.beginPath();
-        ctx.moveTo(legOffset, 0);
-        ctx.lineTo(legOffset - s * 0.6, -s * 0.8 + wiggle * s);
+        ctx.moveTo(leg.x, 0);
+        ctx.lineTo(extendX, extendY);
         ctx.stroke();
-
-        // Right legs
-        ctx.beginPath();
-        ctx.moveTo(legOffset, 0);
-        ctx.lineTo(legOffset - s * 0.6, s * 0.8 - wiggle * s);
-        ctx.stroke();
-      }
+      });
 
       // Draw body (3 segments)
       ctx.fillStyle = antColor;
@@ -306,7 +316,7 @@ export function antsCursor(options) {
 
       // Antennae
       ctx.strokeStyle = antColor;
-      ctx.lineWidth = 0.8;
+      ctx.lineWidth = 0.4;
       ctx.beginPath();
       ctx.moveTo(s * 1.2, -s * 0.2);
       ctx.quadraticCurveTo(s * 1.6, -s * 0.6, s * 1.8, -s * 0.3);
