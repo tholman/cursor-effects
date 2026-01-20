@@ -78,6 +78,14 @@ export type TrailingCursorOptions = {
     readonly baseImageSrc?: number | string;
 } & DefaultOptions;
 
+export type AntsCursorOptions = {
+    readonly numberOfAnts?: number;
+    readonly followRange?: number;
+    readonly color?: string;
+    readonly speed?: number;
+    readonly lineFormationSpeed?: number;
+} & DefaultOptions;
+
 export function bubbleCursor(options?: BubbleCursorOptions): CursorEffectResult;
 export function characterCursor(options?: CharacterCursorOptions): CursorEffectResult;
 export function clockCursor(options?: ClockCursorOptions): CursorEffectResult;
@@ -90,3 +98,4 @@ export function snowflakeCursor(options?: SnowflakeCursorOptions): CursorEffectR
 export function springyEmojiCursor(options?: SpringyEmojiCursorOptions): CursorEffectResult;
 export function textFlag(options?: TextFlagOptions): CursorEffectResult;
 export function trailingCursor(options?: TrailingCursorOptions): CursorEffectResult;
+export function antsCursor(options?: AntsCursorOptions): CursorEffectResult;

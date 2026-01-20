@@ -10,3 +10,4 @@ new cursoreffects.snowflakeCursor({ element: document.querySelector("#snowflake"
 new cursoreffects.characterCursor({ element: document.querySelector("#character") })
 new cursoreffects.clockCursor({ element: document.querySelector("#clock") })
 new cursoreffects.textFlag({ element: document.querySelector("#textFlag"), text: 'Like & Subscribe 💸' })
+new cursoreffects.antsCursor({ element: document.querySelector("#ants") })
