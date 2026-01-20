@@ -114,26 +114,33 @@ export function antsCursor(options) {
     // Reset following state
     ants.forEach((ant) => {
       ant.following = false;
-      ant.followTarget = null;
+      ant.target = null;
     });
 
-    // Build the chain: find ants close to cursor first
     const followingAnts = [];
 
-    // First pass: find ants within range of cursor
+    // Only the single closest ant to cursor follows it directly
+    let closestToCursor = null;
+    let closestDist = Infinity;
+
     ants.forEach((ant) => {
-      const distToCursor = Math.hypot(
+      const dist = Math.hypot(
         ant.position.x - cursor.x,
         ant.position.y - cursor.y
       );
-      if (distToCursor < followRange) {
-        ant.following = true;
-        ant.target = cursor;
-        followingAnts.push(ant);
+      if (dist < followRange && dist < closestDist) {
+        closestDist = dist;
+        closestToCursor = ant;
       }
     });
 
-    // Keep adding ants that are close to any following ant
+    if (closestToCursor) {
+      closestToCursor.following = true;
+      closestToCursor.target = cursor;
+      followingAnts.push(closestToCursor);
+    }
+
+    // Chain: other ants follow the nearest ant that's already following
     let addedNew = true;
     while (addedNew) {
       addedNew = false;
@@ -141,23 +148,23 @@ export function antsCursor(options) {
         if (ant.following) return;
 
         // Find the closest following ant
-        let closestDist = Infinity;
-        let closestAnt = null;
+        let nearestDist = Infinity;
+        let nearestAnt = null;
 
         followingAnts.forEach((followingAnt) => {
           const dist = Math.hypot(
             ant.position.x - followingAnt.position.x,
             ant.position.y - followingAnt.position.y
           );
-          if (dist < closestDist) {
-            closestDist = dist;
-            closestAnt = followingAnt;
+          if (dist < nearestDist) {
+            nearestDist = dist;
+            nearestAnt = followingAnt;
           }
         });
 
-        if (closestDist < followRange && closestAnt) {
+        if (nearestDist < followRange && nearestAnt) {
           ant.following = true;
-          ant.target = closestAnt.position;
+          ant.target = nearestAnt.position;
           followingAnts.push(ant);
           addedNew = true;
         }
